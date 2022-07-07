@@ -26,9 +26,7 @@ type TOptions = {
         type: sort_type;
     };
     filterSetting?: {
-        color?: TColors;
-        country?: TCountry;
-        discount?: boolean[];
+        [index: string]: string[];
     };
 };
 

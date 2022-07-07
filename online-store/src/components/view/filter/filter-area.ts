@@ -14,6 +14,7 @@ export default class FilterArea {
                 const checkbox = document.createElement('input') as HTMLInputElement;
                 checkbox.setAttribute('type', 'checkbox');
                 checkbox.setAttribute('name', key);
+                if (typeof element === 'string') checkbox.setAttribute('value', element);
                 item.className = `filter-box-item filter-box-${key}-item`;
                 if (typeof element === 'string') item.innerText = element;
                 else if (typeof element === 'boolean') item.innerText = 'Только со скидкой';

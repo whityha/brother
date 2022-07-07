@@ -19,14 +19,14 @@ export default class AppController {
             if (!newData.length) {
                 newData = data.filter((item: any) => {
                     return options.filterSetting[key].some(
-                        (value: any) => value === item[key] || value === Boolean(item[key])
+                        (value: any) => value.toLowerCase() === item[key].toLowerCase() || value === Boolean(item[key])
                     );
                 });
                 console.log(newData);
             } else {
                 newData = newData.filter((item: any) => {
                     return options.filterSetting[key].some(
-                        (value: any) => value === item[key] || value === Boolean(item[key])
+                        (value: any) => value.toLowerCase() === item[key].toLowerCase() || value === Boolean(item[key])
                     );
                 });
             }
