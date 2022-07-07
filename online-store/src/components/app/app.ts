@@ -41,6 +41,10 @@ class App {
                 values: ['Lipton', 'Richard', 'Greenfield', 'AHMAD TEE'],
                 pick: 'Брэнд',
             },
+            date: {
+                values: ['2022', '2021', '2020', '2019'],
+                pick: 'Год сбора урожая',
+            },
             discount: {
                 values: [true],
                 pick: 'Скидка',

@@ -15,4 +15,8 @@ export interface IfilterAreaOptions {
         values: [boolean];
         pick: string;
     };
+    date: {
+        values: string[];
+        pick: string;
+    };
 }
