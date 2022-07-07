@@ -4,6 +4,7 @@ import { TCards, TOptions } from '../types/types';
 import { IfilterAreaOptions } from '../types/interfaces';
 const data = [
     {
+        id: 1,
         discount: [false],
         image: {
             src: '../src/assets/images/AHMAD.jpg',
@@ -17,6 +18,7 @@ const data = [
         date: 2019,
     },
     {
+        id: 3,
         discount: [true, 10],
         image: {
             src: '../src/assets/images/lipton.jpg',
@@ -30,6 +32,7 @@ const data = [
         date: 2021,
     },
     {
+        id: 2,
         discount: [false, 20],
         image: {
             src: '../src/assets/images/greenfield.png',
@@ -43,6 +46,7 @@ const data = [
         date: 2020,
     },
     {
+        id: 4,
         discount: [false, 20],
         image: {
             src: '../src/assets/images/richard.jpg',
@@ -60,7 +64,8 @@ class App {
     view: AppView;
     controller: AppController;
     options: TOptions;
-    filterAreaOptions: IfilterAreaOptions;
+    readonly filterAreaOptions: IfilterAreaOptions;
+    readonly defauleFilterSetting: Pick<TOptions, 'filterSetting'>;
     constructor() {
         this.view = new AppView();
         this.controller = new AppController();
@@ -68,6 +73,16 @@ class App {
             sortSettings: {
                 direction: 'line',
                 type: 'date',
+            },
+            filterSetting: {
+                color: ['черный'],
+                country: ['Индия'],
+            },
+        };
+        this.defauleFilterSetting = {
+            filterSetting: {
+                color: ['черный', 'красный', 'белый', 'зеленый'],
+                country: ['Индия', 'Китай', 'Англия', 'Индонезия'],
             },
         };
         this.filterAreaOptions = {
@@ -91,7 +106,9 @@ class App {
         const cardsList = document.querySelector('.card-list') as HTMLUListElement;
         button.addEventListener('click', () => {
             cardsList.innerHTML = '';
-            this.controller.sort(data, this.options, (data: TCards) => {
+            let newData = data;
+            newData = this.controller.sort(newData, this.options);
+            this.controller.filter(newData, this.options, (data: TCards) => {
                 this.view.renderCards(data);
             });
             this.options.sortSettings.direction === 'line'

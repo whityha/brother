@@ -1,4 +1,5 @@
 type TCard = {
+    id: number;
     discount: (number | boolean)[];
     image: {
         src: string;
@@ -13,7 +14,8 @@ type TCard = {
 };
 type TCards = TCard[];
 type TCallBack = (data: TCards) => void;
-
+type TColors = ('черный' | 'красный' | 'белый' | 'зеленый')[];
+type TCountry = ('Индия' | 'Китай' | 'Англия' | 'Индонезия')[];
 type sort_direction = 'line' | 'reverse';
 
 type sort_type = 'date' | 'price';
@@ -24,7 +26,8 @@ type TOptions = {
         type: sort_type;
     };
     filterSetting?: {
-        color: string;
+        color?: TColors;
+        country?: TCountry;
     };
 };
 
