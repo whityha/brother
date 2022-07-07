@@ -1,7 +1,7 @@
 import { IfilterAreaOptions } from '../../types/interfaces';
 
 export default class FilterArea {
-    private makeFilterBox(key: string, name: string, value: string[]) {
+    private makeFilterBox(key: string, name: string, value: string[] | boolean[]) {
         const box = document.createElement('div');
         const filterBoxList = document.createElement('ul');
         const filterBoxName = document.createElement('p');
@@ -15,7 +15,8 @@ export default class FilterArea {
                 checkbox.setAttribute('type', 'checkbox');
                 checkbox.setAttribute('name', key);
                 item.className = `filter-box-item filter-box-${key}-item`;
-                item.innerText = element;
+                if (typeof element === 'string') item.innerText = element;
+                else if (typeof element === 'boolean') item.innerText = 'Только со скидкой';
                 item.prepend(checkbox);
                 filterBoxList.append(item);
             });

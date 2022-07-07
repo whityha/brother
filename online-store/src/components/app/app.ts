@@ -19,14 +19,14 @@ class App {
                 type: 'date',
             },
             filterSetting: {
-                color: ['черный', 'красный'],
-                country: ['Индия', 'Англия', 'Китай'],
+                discount: [true],
             },
         };
         this.defauleFilterSetting = {
             filterSetting: {
                 color: ['черный', 'красный', 'белый', 'зеленый'],
                 country: ['Индия', 'Китай', 'Англия', 'Индонезия'],
+                discount: [true],
             },
         };
         this.filterAreaOptions = {
@@ -41,6 +41,10 @@ class App {
             brand: {
                 values: ['Lipton', 'Richard'],
                 pick: 'Брэнд',
+            },
+            discount: {
+                values: [true],
+                pick: 'Скидка',
             },
         };
         this.data = data;

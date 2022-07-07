@@ -34,8 +34,8 @@ export default class Cards {
 
             buttonCart.setAttribute('type', 'button');
 
-            if (item.discount[0]) {
-                discount.innerText = `Скидка ${item.discount[1]}%`;
+            if (item.discount) {
+                discount.innerText = `Скидка ${item.discount}%`;
                 cardImage.append(discount);
             }
             price.innerText = `$${item.price}`;

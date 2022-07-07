@@ -11,4 +11,8 @@ export interface IfilterAreaOptions {
         values: string[];
         pick: string;
     };
+    discount: {
+        values: [boolean];
+        pick: string;
+    };
 }

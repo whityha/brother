@@ -16,13 +16,20 @@ export default class AppController {
     filter(data: TCards, options: any, callback: TCallBack): void {
         let newData: TCards = [];
         for (const key in options.filterSetting) {
-            if (!newData.length)
+            if (!newData.length) {
                 newData = data.filter((item: any) => {
-                    return options.filterSetting[key].some((value: any) => value === item[key]);
+                    return options.filterSetting[key].some(
+                        (value: any) => value === item[key] || value === Boolean(item[key])
+                    );
                 });
-            newData = newData.filter((item: any) => {
-                return options.filterSetting[key].some((value: any) => value === item[key]);
-            });
+                console.log(newData);
+            } else {
+                newData = newData.filter((item: any) => {
+                    return options.filterSetting[key].some(
+                        (value: any) => value === item[key] || value === Boolean(item[key])
+                    );
+                });
+            }
         }
         callback(newData);
     }

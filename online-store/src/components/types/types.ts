@@ -1,6 +1,6 @@
 type TCard = {
     id: number;
-    discount: (number | boolean)[];
+    discount?: number;
     image: {
         src: string;
     };
@@ -28,6 +28,7 @@ type TOptions = {
     filterSetting?: {
         color?: TColors;
         country?: TCountry;
+        discount?: boolean[];
     };
 };
 
