@@ -1,8 +1,15 @@
 type TCard = {
-    price: number;
-    type: string;
-    date: number;
+    discount: (number | boolean)[];
+    image: {
+        src: string;
+    };
     name: string;
+    type: string;
+    box: string;
+    color: string;
+    country: string;
+    price: number;
+    date: number;
 };
 type TCards = TCard[];
 type TCallBack = (data: TCards) => void;
@@ -15,6 +22,9 @@ type TOptions = {
     sortSettings: {
         direction: sort_direction;
         type: sort_type;
+    };
+    filterSetting?: {
+        color: string;
     };
 };
 
