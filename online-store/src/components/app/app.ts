@@ -6,7 +6,7 @@ const data = [
         discount: [false],
         image: {
             src: '../src/assets/images/AHMAD.jpg',
-    },
+        },
         name: 'AHMAD TEE',
         type: 'чай',
         box: 'листовой',
@@ -45,7 +45,7 @@ const data = [
         discount: [false, 20],
         image: {
             src: '../src/assets/images/richard.jpg',
-    },
+        },
         name: 'RICHARD',
         type: 'чай',
         box: 'листовой',
