@@ -2,71 +2,15 @@ import AppView from '../view/appView';
 import AppController from '../controller/controller';
 import { TCards, TOptions } from '../types/types';
 import { IfilterAreaOptions } from '../types/interfaces';
-const data = [
-    {
-        id: 1,
-        discount: [false],
-        image: {
-            src: '../src/assets/images/AHMAD.jpg',
-        },
-        name: 'AHMAD TEE',
-        type: 'чай',
-        box: 'листовой',
-        color: 'черный',
-        country: 'Индия',
-        price: 10,
-        date: 2019,
-    },
-    {
-        id: 3,
-        discount: [true, 10],
-        image: {
-            src: '../src/assets/images/lipton.jpg',
-        },
-        name: 'LIPTON',
-        type: 'чай',
-        box: 'пакетированный',
-        color: 'черный',
-        country: 'Индонезия',
-        price: 12,
-        date: 2021,
-    },
-    {
-        id: 2,
-        discount: [false, 20],
-        image: {
-            src: '../src/assets/images/greenfield.png',
-        },
-        name: 'GREENFIELD',
-        type: 'чай',
-        box: 'листовой',
-        color: 'зеленый',
-        country: 'Китай',
-        price: 13,
-        date: 2020,
-    },
-    {
-        id: 4,
-        discount: [false, 20],
-        image: {
-            src: '../src/assets/images/richard.jpg',
-        },
-        name: 'RICHARD',
-        type: 'чай',
-        box: 'листовой',
-        color: 'черный',
-        country: 'Англия',
-        price: 200,
-        date: 2022,
-    },
-];
+
 class App {
     view: AppView;
     controller: AppController;
     options: TOptions;
     readonly filterAreaOptions: IfilterAreaOptions;
     readonly defauleFilterSetting: Pick<TOptions, 'filterSetting'>;
-    constructor() {
+    data: TCards;
+    constructor(data: TCards) {
         this.view = new AppView();
         this.controller = new AppController();
         this.options = {
@@ -75,8 +19,8 @@ class App {
                 type: 'date',
             },
             filterSetting: {
-                color: ['черный'],
-                country: ['Индия'],
+                color: ['черный', 'красный'],
+                country: ['Индия', 'Англия', 'Китай'],
             },
         };
         this.defauleFilterSetting = {
@@ -99,6 +43,7 @@ class App {
                 pick: 'Брэнд',
             },
         };
+        this.data = data;
     }
 
     start() {
@@ -106,7 +51,7 @@ class App {
         const cardsList = document.querySelector('.card-list') as HTMLUListElement;
         button.addEventListener('click', () => {
             cardsList.innerHTML = '';
-            let newData = data;
+            let newData = this.data;
             newData = this.controller.sort(newData, this.options);
             this.controller.filter(newData, this.options, (data: TCards) => {
                 this.view.renderCards(data);
@@ -116,7 +61,7 @@ class App {
                 : (this.options.sortSettings.direction = 'line');
         });
 
-        this.controller.sort(data, this.options, (data: TCards) => {
+        this.controller.sort(this.data, this.options, (data: TCards) => {
             this.view.renderCards(data);
         });
         this.view.renderFilterArea(this.filterAreaOptions);
