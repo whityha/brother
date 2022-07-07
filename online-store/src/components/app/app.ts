@@ -115,6 +115,7 @@ class App {
         });
         this.view.renderFilterArea(this.filterAreaOptions);
         this.view.renderSearch();
+        this.view.renderSortArea();
         this.checkboxEvent();
     }
 }

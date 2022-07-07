@@ -3,14 +3,17 @@ import { TCards } from '../types/types';
 import FilterArea from './filter/filter-area';
 import { IfilterAreaOptions } from '../types/interfaces';
 import SearchArea from './search/search-area';
+import SortArea from './sort/sort-area';
 export default class AppView {
     public cards: Cards;
     public filterArea: FilterArea;
-    public search: SearchArea;
+    public searchArea: SearchArea;
+    sortArea: SortArea;
     constructor() {
         this.cards = new Cards();
         this.filterArea = new FilterArea();
-        this.search = new SearchArea();
+        this.searchArea = new SearchArea();
+        this.sortArea = new SortArea();
     }
 
     renderCards(data: TCards) {
@@ -20,6 +23,9 @@ export default class AppView {
         this.filterArea.render(options);
     }
     renderSearch() {
-        this.search.render();
+        this.searchArea.render();
+    }
+    renderSortArea() {
+        this.sortArea.render();
     }
 }
