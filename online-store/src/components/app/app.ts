@@ -1,6 +1,7 @@
 import AppView from '../view/appView';
 import AppController from '../controller/controller';
 import { TCards, TOptions } from '../types/types';
+import { IfilterAreaOptions } from '../types/interfaces';
 const data = [
     {
         discount: [false],
@@ -59,7 +60,7 @@ class App {
     view: AppView;
     controller: AppController;
     options: TOptions;
-    filterAreaOptions: any;
+    filterAreaOptions: IfilterAreaOptions;
     constructor() {
         this.view = new AppView();
         this.controller = new AppController();

@@ -1,5 +1,7 @@
+import { IfilterAreaOptions } from '../../types/interfaces';
+
 export default class FilterArea {
-    private makeFilterBox(key: string, name: string, value: any[]) {
+    private makeFilterBox(key: string, name: string, value: string[]) {
         const box = document.createElement('div');
         const filterBoxList = document.createElement('ul');
         const filterBoxName = document.createElement('p');
@@ -23,11 +25,17 @@ export default class FilterArea {
         box.append(filterBoxName, filterBoxList);
         return box;
     }
-    public render(options) {
+    public render(options: IfilterAreaOptions) {
         const container = document.querySelector('.filter-area') as HTMLDivElement;
-        for (const key in options) {
-            const keyBox = this.makeFilterBox(key, options[key]['pick'], options[key]['values']) as HTMLDivElement;
-            container.append(keyBox);
+        if (options) {
+            for (const key in options) {
+                const keyBox = this.makeFilterBox(
+                    key,
+                    options[key as keyof IfilterAreaOptions]['pick'],
+                    options[key as keyof IfilterAreaOptions]['values']
+                ) as HTMLDivElement;
+                container.append(keyBox);
+            }
         }
     }
 }
