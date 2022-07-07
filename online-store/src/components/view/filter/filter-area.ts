@@ -1,5 +1,5 @@
 import { IfilterAreaOptions } from '../../types/interfaces';
-
+import './filter.sass';
 export default class FilterArea {
     private makeFilterBox(key: string, name: string, value: string[] | boolean[]) {
         const box = document.createElement('div');
@@ -7,6 +7,7 @@ export default class FilterArea {
         const filterBoxName = document.createElement('p');
         box.className = 'filter-box';
         filterBoxName.className = 'filter-box-name';
+        filterBoxList.className = 'filter-box-list';
         filterBoxName.innerText = name;
         if (value.length) {
             value.forEach((element) => {

@@ -38,7 +38,7 @@ class App {
                 pick: 'Цвет',
             },
             brand: {
-                values: ['Lipton', 'Richard'],
+                values: ['Lipton', 'Richard', 'Greenfield', 'AHMAD TEE'],
                 pick: 'Брэнд',
             },
             discount: {
