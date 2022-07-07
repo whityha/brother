@@ -73,7 +73,7 @@ class App {
     start() {
         const button = document.querySelector('.button-swap') as HTMLButtonElement;
         const cardsList = document.querySelector('.card-list') as HTMLUListElement;
-        button.addEventListener('click', (e) => {
+        button.addEventListener('click', () => {
             cardsList.innerHTML = '';
             this.controller.sort(data, this.options, (data: TCards) => {
                 this.view.renderCards(data);
@@ -81,6 +81,10 @@ class App {
             this.options.sortSettings.direction === 'line'
                 ? (this.options.sortSettings.direction = 'reverse')
                 : (this.options.sortSettings.direction = 'line');
+        });
+
+        this.controller.sort(data, this.options, (data: TCards) => {
+            this.view.renderCards(data);
         });
     }
 }
