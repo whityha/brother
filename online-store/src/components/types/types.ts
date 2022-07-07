@@ -4,7 +4,7 @@ type TCard = {
     image: {
         src: string;
     };
-    name: string;
+    brand: string;
     type: string;
     box: string;
     color: string;

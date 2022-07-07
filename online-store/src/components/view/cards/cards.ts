@@ -39,7 +39,7 @@ export default class Cards {
                 cardImage.append(discount);
             }
             price.innerText = `$${item.price}`;
-            name.innerText = `${item.name}`;
+            name.innerText = `${item.brand}`;
             itemDescription.innerHTML = `
                 <span data-type=${item.type}>${item.type}</span>
                 <span data-box=${item.box}>${item.box}</span>
@@ -53,7 +53,7 @@ export default class Cards {
 
             card.className = 'card';
             card.setAttribute('data-price', `${item.price}`);
-            card.setAttribute('data-name', `${item.name}`);
+            card.setAttribute('data-brand', `${item.brand}`);
             card.setAttribute('data-type', `${item.type}`);
             cardImage.append(star, image);
             cardBody.append(price, name, itemDescription, itemLocation, buttonCart);

@@ -6,7 +6,7 @@ const data = [
         image: {
             src: '../src/assets/images/AHMAD.jpg',
         },
-        name: 'AHMAD TEE',
+        brand: 'AHMAD TEE',
         type: 'чай',
         box: 'листовой',
         color: 'черный',
@@ -20,7 +20,7 @@ const data = [
         image: {
             src: '../src/assets/images/lipton.jpg',
         },
-        name: 'LIPTON',
+        brand: 'LIPTON',
         type: 'чай',
         box: 'пакетированный',
         color: 'черный',
@@ -33,7 +33,7 @@ const data = [
         image: {
             src: '../src/assets/images/greenfield.png',
         },
-        name: 'GREENFIELD',
+        brand: 'GREENFIELD',
         type: 'чай',
         box: 'листовой',
         color: 'зеленый',
@@ -46,7 +46,7 @@ const data = [
         image: {
             src: '../src/assets/images/richard.jpg',
         },
-        name: 'RICHARD',
+        brand: 'RICHARD',
         type: 'чай',
         box: 'листовой',
         color: 'черный',
@@ -60,7 +60,7 @@ const data = [
         image: {
             src: '../src/assets/images/greenfield.png',
         },
-        name: 'Greenfield',
+        brand: 'Greenfield',
         type: 'чай',
         box: 'листовой',
         color: 'зеленый',
@@ -74,7 +74,7 @@ const data = [
         image: {
             src: '../src/assets/images/richard.jpg',
         },
-        name: 'RICHARD',
+        brand: 'RICHARD',
         type: 'чай',
         box: 'листовой',
         color: 'черный',

@@ -8,7 +8,6 @@ export default class AppController {
                 return b[`${options.sortSettings.type}`] - a[`${options.sortSettings.type}`];
             } else throw new Error('options передались неправильно');
         });
-        console.log(sortData);
         if (callback) callback(sortData);
         return sortData;
     }
@@ -22,7 +21,6 @@ export default class AppController {
                         (value: any) => value.toLowerCase() === item[key].toLowerCase() || value === Boolean(item[key])
                     );
                 });
-                console.log(newData);
             } else {
                 newData = newData.filter((item: any) => {
                     return options.filterSetting[key].some(

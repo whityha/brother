@@ -54,26 +54,27 @@ class App {
         checkboxes.forEach((checkbox) => {
             checkbox.addEventListener('change', (e) => {
                 if (e.target) {
-                    const target = e.target as HTMLInputElement;
-                    const value = target.value as string;
-                    const checkName = target.name as string;
-                    if (target.checked) {
+                    const checkbox = e.target as HTMLInputElement;
+                    const checkboxValue = checkbox.value as string;
+                    const checkboxName = checkbox.name as string;
+                    if (checkbox.checked) {
                         if (this.options.filterSetting) {
-                            const array: string[] = this.options.filterSetting[checkName] || [];
-                            array.push(`${value}`);
-                            this.options.filterSetting[checkName] = array;
+                            const array: string[] = this.options.filterSetting[checkboxName] || [];
+                            array.push(`${checkboxValue.toLowerCase()}`);
+                            this.options.filterSetting[checkboxName] = array;
                         } else throw new Error('Нет объекта опций для фильтрации');
-                        this.startFilter(this.options);
                     } else {
                         if (this.options.filterSetting) {
-                            const i = this.options.filterSetting[checkName].findIndex((item) => item === value);
-                            this.options.filterSetting[checkName].splice(i, 1);
-                            if (!this.options.filterSetting[checkName].length)
-                                delete this.options.filterSetting[checkName];
+                            const i = this.options.filterSetting[checkboxName].findIndex(
+                                (item) => item === checkboxValue
+                            );
+                            this.options.filterSetting[checkboxName].splice(i, 1);
+                            if (!this.options.filterSetting[checkboxName].length)
+                                delete this.options.filterSetting[checkboxName];
                         }
-                        console.log(this.options.filterSetting, 'после удаления свояста');
-                        this.startFilter(this.options);
                     }
+                    console.log(this.options);
+                    this.startFilter(this.options);
                 }
             });
         });
