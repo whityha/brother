@@ -1,0 +1,54 @@
+@import '../../../variables.sass'
+.card
+    display: flex
+    flex-direction: column
+    border-radius: 10px
+    background: $medium-champagne
+    width: 80%
+    height: 370px
+    margin: 10px
+    color: black
+    overflow: hidden
+    box-shadow: 0px 0px 10px grey
+    &-image
+        display: flex
+        position: relative
+        justify-content: center
+        padding-top: 10px
+        height: 200px
+        background: white
+        .discount
+            position: absolute
+            display: inline-block
+            text-align: center
+            border-radius: 10px 0px 10px 0px
+            padding: 3px
+            top: 0
+            left: 0
+            background: #98cd98
+        img
+            width: auto
+            height: 100%
+            padding: 13px 0px
+        .star
+            position: absolute
+            top: 0px
+            right: 0px
+            width: 40px
+            height: 40px
+            background: url('../../../assets/images/star_with_fill.png') no-repeat center center/100%
+            background: url('../../../assets/images/star_without_fill.png') no-repeat center center/100%
+            &:hover
+                cursor: pointer
+                transition: .1s
+                background: url('../../../assets/images/star_with_fill.png') no-repeat center center/100%
+    &-body
+        display: flex
+        flex-direction: column
+        padding: 10px
+        .on-cart
+            margin-top: 10px
+            border-radius: 5px
+            padding: 5px
+            background: $camel
+            cursor: pointer
