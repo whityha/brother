@@ -59,6 +59,7 @@ class App {
     view: AppView;
     controller: AppController;
     options: TOptions;
+    filterAreaOptions: any;
     constructor() {
         this.view = new AppView();
         this.controller = new AppController();
@@ -66,6 +67,20 @@ class App {
             sortSettings: {
                 direction: 'line',
                 type: 'date',
+            },
+        };
+        this.filterAreaOptions = {
+            country: {
+                values: ['Индия', 'Китай', 'Англия', 'Индонезия'],
+                pick: 'Страны',
+            },
+            color: {
+                values: ['Черный', 'Белый', 'Красный', 'Зеленый'],
+                pick: 'Цвет',
+            },
+            brand: {
+                values: ['Lipton', 'Richard'],
+                pick: 'Брэнд',
             },
         };
     }
@@ -86,6 +101,7 @@ class App {
         this.controller.sort(data, this.options, (data: TCards) => {
             this.view.renderCards(data);
         });
+        this.view.renderFilterArea(this.filterAreaOptions);
     }
 }
 
