@@ -114,6 +114,7 @@ class App {
             this.view.renderCards(data);
         });
         this.view.renderFilterArea(this.filterAreaOptions);
+        this.view.renderSearch();
         this.checkboxEvent();
     }
 }
