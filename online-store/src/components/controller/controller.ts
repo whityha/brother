@@ -11,4 +11,13 @@ export default class AppController {
         console.log(sortData);
         callback(sortData);
     }
+
+    filter(data: TCards, options: any): TCards {
+        let response: TCards = [];
+        for (const key in options) {
+            if (!response.length) response = data.filter((item: any) => options[key] === item[key]);
+            else response = response.filter((item: any) => options[key] === item[key]);
+        }
+        return response;
+    }
 }
