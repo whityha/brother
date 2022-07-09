@@ -1,6 +1,31 @@
 import { IfilterAreaOptions } from '../../types/interfaces';
 import './filter.sass';
 export default class FilterArea {
+    readonly filterAreaOptions: IfilterAreaOptions;
+    constructor() {
+        this.filterAreaOptions = {
+            country: {
+                values: ['Индия', 'Китай', 'Англия', 'Индонезия'],
+                pick: 'Страны',
+            },
+            color: {
+                values: ['черный', 'белый', 'красный', 'зеленый'],
+                pick: 'Цвет',
+            },
+            brand: {
+                values: ['Lipton', 'Richard', 'Greenfield', 'AHMAD TEE'],
+                pick: 'Брэнд',
+            },
+            date: {
+                values: ['2022', '2021', '2020', '2019'],
+                pick: 'Год сбора урожая',
+            },
+            discount: {
+                values: [true],
+                pick: 'Скидка',
+            },
+        };
+    }
     private makeFilterBox(key: string, name: string, value: string[] | boolean[]) {
         const box = document.createElement('div');
         const filterBoxList = document.createElement('ul');
@@ -28,14 +53,14 @@ export default class FilterArea {
         box.append(filterBoxName, filterBoxList);
         return box;
     }
-    public render(options: IfilterAreaOptions) {
+    public render() {
         const container = document.querySelector('.filter-area') as HTMLDivElement;
-        if (options) {
-            for (const key in options) {
+        if (this.filterAreaOptions) {
+            for (const key in this.filterAreaOptions) {
                 const keyBox = this.makeFilterBox(
                     key,
-                    options[key as keyof IfilterAreaOptions]['pick'],
-                    options[key as keyof IfilterAreaOptions]['values']
+                    this.filterAreaOptions[key as keyof IfilterAreaOptions]['pick'],
+                    this.filterAreaOptions[key as keyof IfilterAreaOptions]['values']
                 ) as HTMLDivElement;
                 container.append(keyBox);
             }

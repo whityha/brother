@@ -1,7 +1,6 @@
 import Cards from './cards/cards';
 import { TCards } from '../types/types';
 import FilterArea from './filter/filter-area';
-import { IfilterAreaOptions } from '../types/interfaces';
 import SearchArea from './search/search-area';
 import SortArea from './sort/sort-area';
 export default class AppView {
@@ -19,8 +18,8 @@ export default class AppView {
     renderCards(data: TCards) {
         this.cards.render(data);
     }
-    renderFilterArea(options: IfilterAreaOptions) {
-        this.filterArea.render(options);
+    renderFilterArea() {
+        this.filterArea.render();
     }
     renderSearch() {
         this.searchArea.render();
