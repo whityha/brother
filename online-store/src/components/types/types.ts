@@ -18,13 +18,13 @@ type TCards = TCard[];
 type TCallBack = (data: TCards) => void;
 type TColors = ('черный' | 'красный' | 'белый' | 'зеленый')[];
 type TCountry = ('Индия' | 'Китай' | 'Англия' | 'Индонезия')[];
-type sort_direction = 'line' | 'reverse';
+type Tsort_direction = 'line' | 'reverse';
 
 type Tsort_type = 'date' | 'price';
 
 type TOptions = {
     sortSettings: {
-        direction: sort_direction;
+        direction: Tsort_direction;
         type: Tsort_type;
     };
     filterSetting: {
@@ -32,4 +32,4 @@ type TOptions = {
     };
 };
 type TdefaultFilter = Pick<TOptions, 'filterSetting'>;
-export { TCard, TCards, TCallBack, TOptions, TdefaultFilter, Tsort_type };
+export { TCard, TCards, TCallBack, TOptions, TdefaultFilter, Tsort_type, Tsort_direction };

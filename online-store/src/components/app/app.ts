@@ -1,6 +1,6 @@
 import AppView from '../view/appView';
 import AppController from '../controller/controller';
-import { TCards, TOptions, TdefaultFilter, Tsort_type } from '../types/types';
+import { TCards, TOptions, TdefaultFilter, Tsort_type, Tsort_direction } from '../types/types';
 
 class App {
     view: AppView;
@@ -31,6 +31,13 @@ class App {
     }
     sortEvent() {
         const sort = document.querySelector('.sort-select') as HTMLSelectElement;
+        const sortBtn = document.querySelector('.sort-button') as HTMLButtonElement;
+        sortBtn.addEventListener('click', () => {
+            const value = sortBtn.value as Tsort_direction;
+            this.options.sortSettings.direction = value;
+            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options, this.search);
+            else this.startSort(this.options);
+        });
         sort.addEventListener('change', () => {
             const value = sort.options[sort.selectedIndex]['value'] as Tsort_type;
             this.options.sortSettings.type = value;
@@ -117,7 +124,7 @@ class App {
         this.searchEvent();
         this.sortEvent();
 
-        this.view.renderCards(this.data);
+        this.startSort(this.options);
     }
 }
 

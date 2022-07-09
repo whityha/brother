@@ -1,7 +1,25 @@
-.sort-select
-    width: 100%
-    padding: 13px 15px
-    border-radius: 10px
-    font-family: inherit
-    font-size: inherit    
-    cursor: pointer
+@import '../../../variables.sass'
+.sort-area
+    display: flex
+    justify-content: space-between
+    .sort-select
+        width: 57%
+        padding: 13px 15px
+        border-radius: 10px
+        font-family: inherit
+        font-size: inherit    
+        cursor: pointer
+        outline: none
+        border: 1px solid $middle-grey
+        transition: .2s
+        &:hover
+            background-color: $medium-champagne
+    .sort-button
+        padding: 13px 5px
+        cursor: pointer
+        border: 1px solid $middle-grey
+        border-radius: 10px
+        width: 37%
+        transition: .2s
+        &:hover
+            background-color: $medium-champagne
