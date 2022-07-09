@@ -12,30 +12,33 @@ export default class AppController {
         return sortData;
     }
 
-    filter(data: TCards, options: Pick<TOptions, 'filterSetting'>, callback: TCallBack): void {
+    filter(data: TCards, options: Pick<TOptions, 'filterSetting'>, search: string, callback: TCallBack): void {
         let newData: TCards = [];
         for (const key in options.filterSetting) {
             if (!newData.length) {
                 newData = data.filter((item) => {
-                    return options.filterSetting[key].some((value) => {
-                        switch (typeof item[key]) {
-                            case 'number':
-                                return value == item[key];
-                            case 'boolean':
-                                return value === item[key].toString();
-                            case 'string':
-                                return value.toLowerCase() === (item[key] as string).toLowerCase();
-                        }
-                    });
+                    if (item.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
+                        return options.filterSetting[key].some((value) => {
+                            switch (typeof item[key]) {
+                                case 'number':
+                                    return value == item[key];
+                                case 'boolean':
+                                    return value === item[key].toString();
+                                case 'string':
+                                    return value.toLowerCase() === (item[key] as string).toLowerCase();
+                            }
+                        });
+                    }
+                    return false;
                 });
             } else {
                 newData = newData.filter((item) => {
                     return options.filterSetting[key].some((value) => {
                         switch (typeof item[key]) {
-                            case 'boolean':
-                                return value === item[key].toString();
                             case 'number':
                                 return value == item[key];
+                            case 'boolean':
+                                return value === item[key].toString();
                             case 'string':
                                 return value.toLowerCase() === (item[key] as string).toLowerCase();
                         }

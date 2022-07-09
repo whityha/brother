@@ -8,6 +8,7 @@ class App {
     options: TOptions;
     readonly defauleFilterSetting: TdefaultFilter;
     data: TCards;
+    search: string;
     constructor(data: TCards) {
         this.view = new AppView();
         this.controller = new AppController();
@@ -25,7 +26,20 @@ class App {
                 country: ['Индия', 'Китай', 'Англия', 'Индонезия'],
             },
         };
+        this.search = '';
         this.data = data;
+    }
+    searchEvent() {
+        const search = document.querySelector('.search-input') as HTMLInputElement;
+        const clearBtn = document.querySelector('.search-icon') as HTMLButtonElement;
+        clearBtn.addEventListener('click', () => {
+            this.search = '';
+            this.startFilter(this.options, this.search);
+        });
+        search.addEventListener('input', () => {
+            this.search = search.value;
+            this.startFilter(this.options, this.search);
+        });
     }
     checkboxEvent() {
         //навешиваеем обработчики событий на чекбоксы, для изменения настроек фильтрации
@@ -55,22 +69,22 @@ class App {
                         }
                     }
                     console.log(this.options.filterSetting);
-                    this.startFilter(this.options);
+                    this.startFilter(this.options, this.search);
                 }
             });
         });
     }
-    startFilter(options: TOptions) {
+    startFilter(options: TOptions, search: string) {
         let newData = this.data;
         this.clearCardList();
         newData = this.controller.sort(newData, options);
         if (!Object.keys(options.filterSetting).length) {
             // если нет настроек для фильтра, мы используем дефолтные настройки для фильтрации
-            this.controller.filter(newData, this.defauleFilterSetting, (data: TCards) => {
+            this.controller.filter(newData, this.defauleFilterSetting, search, (data: TCards) => {
                 this.view.renderCards(data);
             });
         } else {
-            this.controller.filter(newData, options, (data: TCards) => {
+            this.controller.filter(newData, options, search, (data: TCards) => {
                 this.view.renderCards(data);
             });
         }
@@ -82,7 +96,7 @@ class App {
     start() {
         const button = document.querySelector('.button-swap') as HTMLButtonElement;
         button.addEventListener('click', () => {
-            this.startFilter(this.options);
+            this.startFilter(this.options, this.search);
             this.options.sortSettings.direction === 'line'
                 ? (this.options.sortSettings.direction = 'reverse')
                 : (this.options.sortSettings.direction = 'line');
@@ -91,7 +105,9 @@ class App {
         this.view.renderFilterArea();
         this.view.renderSearch();
         this.view.renderSortArea();
+
         this.checkboxEvent();
+        this.searchEvent();
 
         this.controller.sort(this.data, this.options, (data: TCards) => {
             this.view.renderCards(data);
