@@ -6,7 +6,7 @@ const data = [
         discount_value: 0,
         discount: false,
         image: {
-            src: '../src/assets/images/AHMAD.jpg',
+            src: './assets/images/AHMAD.jpg',
         },
         brand: 'AHMAD TEE',
         type: 'чай',
@@ -21,7 +21,7 @@ const data = [
         discount_value: 10,
         discount: true,
         image: {
-            src: '../src/assets/images/lipton.jpg',
+            src: './assets/images/lipton.jpg',
         },
         brand: 'LIPTON',
         type: 'чай',
@@ -36,7 +36,7 @@ const data = [
         discount_value: 0,
         discount: false,
         image: {
-            src: '../src/assets/images/greenfield.png',
+            src: './assets/images/greenfield.png',
         },
         brand: 'GREENFIELD',
         type: 'чай',
@@ -51,7 +51,7 @@ const data = [
         discount_value: 0,
         discount: false,
         image: {
-            src: '../src/assets/images/richard.jpg',
+            src: './assets/images/richard.jpg',
         },
         brand: 'RICHARD',
         type: 'чай',
@@ -66,7 +66,7 @@ const data = [
         discount_value: 30,
         discount: true,
         image: {
-            src: '../src/assets/images/greenfield.png',
+            src: './assets/images/greenfield.png',
         },
         brand: 'Greenfield',
         type: 'чай',
@@ -81,7 +81,7 @@ const data = [
         discount_value: 50,
         discount: true,
         image: {
-            src: '../src/assets/images/richard.jpg',
+            src: './assets/images/richard.jpg',
         },
         brand: 'RICHARD',
         type: 'чай',

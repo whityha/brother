@@ -2,6 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = baseConfig = {
   entry: path.resolve(__dirname, './src/index.ts'),
@@ -35,6 +36,7 @@ module.exports = baseConfig = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'assets/[name][ext]',
   }, 
   plugins: [
     new HtmlWebpackPlugin({
@@ -42,6 +44,14 @@ module.exports = baseConfig = {
         filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        { 
+          from: './src/assets',
+          to: './assets',
+        }
+      ],
+    }),
   ],
 };
 
