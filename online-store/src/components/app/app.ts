@@ -1,12 +1,12 @@
 import AppView from '../view/appView';
 import AppController from '../controller/controller';
-import { TCards, TOptions } from '../types/types';
+import { TCards, TOptions, TdefaultFilter } from '../types/types';
 
 class App {
     view: AppView;
     controller: AppController;
     options: TOptions;
-    readonly defauleFilterSetting: Pick<TOptions, 'filterSetting'>;
+    readonly defauleFilterSetting: TdefaultFilter;
     data: TCards;
     constructor(data: TCards) {
         this.view = new AppView();
@@ -54,13 +54,13 @@ class App {
                                 delete this.options.filterSetting[checkboxName];
                         }
                     }
-
+                    console.log(this.options.filterSetting);
                     this.startFilter(this.options);
                 }
             });
         });
     }
-    startFilter(options: any) {
+    startFilter(options: TOptions) {
         let newData = this.data;
         this.clearCardList();
         newData = this.controller.sort(newData, options);

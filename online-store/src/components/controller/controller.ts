@@ -1,6 +1,6 @@
 import { TCallBack, TOptions, TCards } from '../types/types';
 export default class AppController {
-    sort(data: TCards, options: TOptions, callback?: TCallBack): TCards {
+    sort(data: TCards, options: Pick<TOptions, 'sortSettings'>, callback?: TCallBack): TCards {
         const sortData = data.sort((a, b) => {
             if (options.sortSettings.direction === 'line') {
                 return a[`${options.sortSettings.type}`] - b[`${options.sortSettings.type}`];
@@ -12,32 +12,32 @@ export default class AppController {
         return sortData;
     }
 
-    filter(data: TCards, options: any, callback: TCallBack): void {
+    filter(data: TCards, options: Pick<TOptions, 'filterSetting'>, callback: TCallBack): void {
         let newData: TCards = [];
         for (const key in options.filterSetting) {
             if (!newData.length) {
-                newData = data.filter((item: any) => {
-                    return options.filterSetting[key].some((value: any) => {
+                newData = data.filter((item) => {
+                    return options.filterSetting[key].some((value) => {
                         switch (typeof item[key]) {
                             case 'number':
                                 return value == item[key];
                             case 'boolean':
                                 return value === item[key].toString();
                             case 'string':
-                                return value.toLowerCase() === item[key].toLowerCase();
+                                return value.toLowerCase() === (item[key] as string).toLowerCase();
                         }
                     });
                 });
             } else {
-                newData = newData.filter((item: any) => {
-                    return options.filterSetting[key].some((value: any) => {
+                newData = newData.filter((item) => {
+                    return options.filterSetting[key].some((value) => {
                         switch (typeof item[key]) {
                             case 'boolean':
-                                return value === item[key].toSting();
+                                return value === item[key].toString();
                             case 'number':
                                 return value == item[key];
                             case 'string':
-                                return value.toLowerCase() === item[key].toLowerCase();
+                                return value.toLowerCase() === (item[key] as string).toLowerCase();
                         }
                     });
                 });

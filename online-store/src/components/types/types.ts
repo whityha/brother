@@ -1,6 +1,7 @@
 type TCard = {
+    [index: string]: string | number | boolean | object;
     id: number;
-    discount_value?: number;
+    discount_value: number;
     discount: boolean;
     image: {
         src: string;
@@ -26,9 +27,9 @@ type TOptions = {
         direction: sort_direction;
         type: sort_type;
     };
-    filterSetting?: {
+    filterSetting: {
         [index: string]: string[];
     };
 };
-
-export { TCard, TCards, TCallBack, TOptions };
+type TdefaultFilter = Pick<TOptions, 'filterSetting'>;
+export { TCard, TCards, TCallBack, TOptions, TdefaultFilter };
