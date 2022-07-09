@@ -3,6 +3,7 @@ import App from './components/app/app';
 const data = [
     {
         id: 1,
+        discount: false,
         image: {
             src: '../src/assets/images/AHMAD.jpg',
         },
@@ -16,7 +17,8 @@ const data = [
     },
     {
         id: 3,
-        discount: 10,
+        discount_value: 10,
+        discount: true,
         image: {
             src: '../src/assets/images/lipton.jpg',
         },
@@ -30,6 +32,7 @@ const data = [
     },
     {
         id: 2,
+        discount: false,
         image: {
             src: '../src/assets/images/greenfield.png',
         },
@@ -43,6 +46,7 @@ const data = [
     },
     {
         id: 4,
+        discount: false,
         image: {
             src: '../src/assets/images/richard.jpg',
         },
@@ -56,7 +60,8 @@ const data = [
     },
     {
         id: 5,
-        discount: 30,
+        discount_value: 30,
+        discount: true,
         image: {
             src: '../src/assets/images/greenfield.png',
         },
@@ -70,7 +75,8 @@ const data = [
     },
     {
         id: 6,
-        discount: 50,
+        discount_value: 50,
+        discount: true,
         image: {
             src: '../src/assets/images/richard.jpg',
         },

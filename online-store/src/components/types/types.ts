@@ -1,6 +1,7 @@
 type TCard = {
     id: number;
-    discount?: number;
+    discount_value?: number;
+    discount: boolean;
     image: {
         src: string;
     };

@@ -21,7 +21,7 @@ export default class FilterArea {
                 pick: 'Год сбора урожая',
             },
             discount: {
-                values: [true],
+                values: ['true'],
                 pick: 'Скидка',
             },
         };
@@ -42,8 +42,10 @@ export default class FilterArea {
                 checkbox.setAttribute('name', key);
                 if (typeof element === 'string') checkbox.setAttribute('value', element);
                 item.className = `filter-box-item filter-box-${key}-item`;
-                if (typeof element === 'string') item.innerText = element;
-                else if (typeof element === 'boolean') item.innerText = 'Только со скидкой';
+                if (typeof element === 'string') {
+                    item.innerText = element;
+                    if (element == 'true' || element == 'false') item.innerText = 'Только со скидкой';
+                }
                 item.prepend(checkbox);
                 filterBoxList.append(item);
             });

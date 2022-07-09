@@ -12,7 +12,7 @@ export interface IfilterAreaOptions {
         pick: string;
     };
     discount: {
-        values: [boolean];
+        values: [string];
         pick: string;
     };
     date: {

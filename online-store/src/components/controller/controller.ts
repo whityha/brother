@@ -18,19 +18,27 @@ export default class AppController {
             if (!newData.length) {
                 newData = data.filter((item: any) => {
                     return options.filterSetting[key].some((value: any) => {
-                        if (typeof item[key] === 'string' && typeof value === 'string')
-                            return value.toLowerCase() === item[key].toLowerCase();
-                        if (typeof value === 'boolean') return value === Boolean(item[key]);
-                        if (typeof item[key] === 'number' && typeof value === 'string') return value == item[key];
+                        switch (typeof item[key]) {
+                            case 'number':
+                                return value == item[key];
+                            case 'boolean':
+                                return value === item[key].toString();
+                            case 'string':
+                                return value.toLowerCase() === item[key].toLowerCase();
+                        }
                     });
                 });
             } else {
                 newData = newData.filter((item: any) => {
                     return options.filterSetting[key].some((value: any) => {
-                        if (typeof item[key] === 'string' && typeof value === 'string')
-                            return value.toLowerCase() === item[key].toLowerCase();
-                        if (typeof value === 'boolean') return value === Boolean(item[key]);
-                        if (typeof item[key] === 'number' && typeof value === 'string') return value == item[key];
+                        switch (typeof item[key]) {
+                            case 'boolean':
+                                return value === item[key].toSting();
+                            case 'number':
+                                return value == item[key];
+                            case 'string':
+                                return value.toLowerCase() === item[key].toLowerCase();
+                        }
                     });
                 });
             }
