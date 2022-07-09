@@ -4,14 +4,31 @@
     width: 1200px
     margin: 0 auto
 .header
+    background: $camel
+    margin-bottom: 20px
     .content
         display: flex
         height: 100px
-        justify-content: space-between
+        justify-content: space-between        
+        .logo
+            display: flex
+            align-self: center
+            flex-direction: column
+            &-link
+                text-decoration: none
+                color: $slate-gray
+                font-size: 46px
+                font-weight: bold
+            &-store                
+                color: $slate-gray
+                font-size: 20px
         .cart
             width: 100px
             height: 100px
-            background: url('./assets/images/cart2.png') no-repeat center center/100%
+            display: flex
+            position: relative
+            background: url('./assets/images/cart2.png') no-repeat center center/80%
+
 .main  
     .content
         width: 100%

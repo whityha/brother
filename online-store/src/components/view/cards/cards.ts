@@ -1,7 +1,7 @@
 import { TCards } from '../../types/types';
 import './card.sass';
 export default class Cards {
-    render(data: TCards) {
+    render(data: TCards, cartItems: string[]) {
         const itemsList = document.querySelector('.card-list') as HTMLUListElement;
         data.forEach((item) => {
             const listitem = document.createElement('li') as HTMLLIElement;
@@ -33,6 +33,21 @@ export default class Cards {
             buttonCart.className = 'on-cart';
 
             buttonCart.setAttribute('type', 'button');
+            buttonCart.setAttribute('data-id', `${item.id}`);
+            buttonCart.innerText = 'В корзину';
+            if (cartItems.some((id) => id === item.id.toString())) {
+                buttonCart.innerText = 'Добавлено!';
+                buttonCart.classList.add('added');
+            }
+            buttonCart.addEventListener('click', (e) => {
+                if (e.target) {
+                    const btnCart = e.target as HTMLDivElement;
+                    const btnId = btnCart.dataset.id;
+                    if (!btnCart.classList.contains('added')) {
+                        console.log('cart', btnId);
+                    }
+                }
+            });
 
             if (item.discount) {
                 discount.innerText = `Скидка ${item.discount_value}%`;
@@ -49,7 +64,6 @@ export default class Cards {
                 <span data-country=${item.country}>${item.country}</span>
                  <span data-date=${item.date}>${item.date}</span>
             `;
-            buttonCart.innerText = 'В корзину';
 
             card.className = 'card';
             card.setAttribute('data-price', `${item.price}`);

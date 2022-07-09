@@ -9,9 +9,11 @@ class App {
     readonly defauleFilterSetting: TdefaultFilter;
     data: TCards;
     search: string;
+    cartItems: string[];
     constructor(data: TCards) {
         this.view = new AppView();
         this.controller = new AppController();
+        this.cartItems = [];
         this.options = {
             sortSettings: {
                 direction: 'line',
@@ -29,6 +31,32 @@ class App {
         this.search = '';
         this.data = data;
     }
+
+    cardsEvent() {
+        const cartBtns = document.querySelectorAll('.on-cart');
+        cartBtns.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                if (e.target) {
+                    if (this.cartItems.length < 20) {
+                        const cartBtn = e.target as HTMLButtonElement;
+                        const cardId = cartBtn.dataset.id;
+                        if (!cartBtn.classList.contains('added') && cardId) {
+                            this.cartItems.push(cardId);
+                            cartBtn.innerText = 'Добавлено!';
+                        } else {
+                            const i = this.cartItems.findIndex((item) => item == cardId);
+                            this.cartItems.splice(i, 1);
+                            cartBtn.innerText = 'В корзину';
+                        }
+                        cartBtn.classList.toggle('added');
+                        this.clearBox('.cart');
+                        this.view.renderCart(this.cartItems.length);
+                    } else throw new Error('В корзине уже больше 20 штук');
+                }
+            });
+        });
+    }
+
     sortEvent() {
         const sort = document.querySelector('.sort-select') as HTMLSelectElement;
         const sortBtn = document.querySelector('.sort-button') as HTMLButtonElement;
@@ -45,6 +73,7 @@ class App {
             else this.startSort(this.options);
         });
     }
+
     searchEvent() {
         const search = document.querySelector('.search-input') as HTMLInputElement;
         const clearBtn = document.querySelector('.search-icon') as HTMLButtonElement;
@@ -57,6 +86,7 @@ class App {
             this.startFilter(this.options, this.search);
         });
     }
+
     checkboxEvent() {
         //навешиваеем обработчики событий на чекбоксы, для изменения настроек фильтрации
         const checkboxes = document.querySelectorAll('.filter-area input[type=checkbox]');
@@ -90,35 +120,42 @@ class App {
             });
         });
     }
+
     startSort(options: TOptions) {
-        this.clearCardList();
+        this.clearBox('.card-list');
         this.controller.sort(this.data, options, (data: TCards) => {
-            this.view.renderCards(data);
+            this.view.renderCards(data, this.cartItems);
         });
+        this.cardsEvent();
     }
+
     startFilter(options: TOptions, search: string) {
         let newData = this.data;
-        this.clearCardList();
+        this.clearBox('.card-list');
         newData = this.controller.sort(newData, options);
         if (!Object.keys(options.filterSetting).length) {
             // если нет настроек для фильтра, мы используем дефолтные настройки для фильтрации
             this.controller.filter(newData, this.defauleFilterSetting, search, (data: TCards) => {
-                this.view.renderCards(data);
+                this.view.renderCards(data, this.cartItems);
             });
         } else {
             this.controller.filter(newData, options, search, (data: TCards) => {
-                this.view.renderCards(data);
+                this.view.renderCards(data, this.cartItems);
             });
         }
+        this.cardsEvent();
     }
-    clearCardList() {
-        const cardsList = document.querySelector('.card-list') as HTMLUListElement;
+
+    clearBox(className: string) {
+        const cardsList = document.querySelector(`${className}`) as HTMLElement;
         cardsList.innerHTML = '';
     }
+
     start() {
         this.view.renderFilterArea();
         this.view.renderSearch();
         this.view.renderSortArea();
+        this.view.renderCart(this.cartItems.length);
 
         this.checkboxEvent();
         this.searchEvent();
