@@ -4,6 +4,10 @@ export default class FilterArea {
     readonly filterAreaOptions: IfilterAreaOptions;
     constructor() {
         this.filterAreaOptions = {
+            discount: {
+                values: ['true'],
+                pick: 'Скидка',
+            },
             country: {
                 values: ['Индия', 'Китай', 'Англия', 'Индонезия'],
                 pick: 'Страны',
@@ -19,10 +23,6 @@ export default class FilterArea {
             date: {
                 values: ['2022', '2021', '2020', '2019'],
                 pick: 'Год сбора урожая',
-            },
-            discount: {
-                values: ['true'],
-                pick: 'Скидка',
             },
         };
     }
