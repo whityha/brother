@@ -14,7 +14,7 @@ module.exports = baseConfig = {
             loader: 'ts-loader',
         },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.(css|s[ac]ss)$/i,
           use: [
             // Creates `style` nodes from JS strings
             "style-loader",

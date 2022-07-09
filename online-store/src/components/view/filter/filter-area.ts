@@ -1,5 +1,7 @@
 import { IfilterAreaOptions } from '../../types/interfaces';
 import './filter.sass';
+import 'nouislider/dist/nouislider.css';
+import { dateBox } from './filter-range/filter-range-date';
 export default class FilterArea {
     readonly filterAreaOptions: IfilterAreaOptions;
     constructor() {
@@ -57,6 +59,7 @@ export default class FilterArea {
     }
     public render() {
         const container = document.querySelector('.filter-area') as HTMLDivElement;
+        container.append(dateBox);
         if (this.filterAreaOptions) {
             for (const key in this.filterAreaOptions) {
                 const keyBox = this.makeFilterBox(
