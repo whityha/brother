@@ -20,16 +20,16 @@ type TColors = ('черный' | 'красный' | 'белый' | 'зелены
 type TCountry = ('Индия' | 'Китай' | 'Англия' | 'Индонезия')[];
 type sort_direction = 'line' | 'reverse';
 
-type sort_type = 'date' | 'price';
+type Tsort_type = 'date' | 'price';
 
 type TOptions = {
     sortSettings: {
         direction: sort_direction;
-        type: sort_type;
+        type: Tsort_type;
     };
     filterSetting: {
         [index: string]: string[];
     };
 };
 type TdefaultFilter = Pick<TOptions, 'filterSetting'>;
-export { TCard, TCards, TCallBack, TOptions, TdefaultFilter };
+export { TCard, TCards, TCallBack, TOptions, TdefaultFilter, Tsort_type };

@@ -1,6 +1,6 @@
 import AppView from '../view/appView';
 import AppController from '../controller/controller';
-import { TCards, TOptions, TdefaultFilter } from '../types/types';
+import { TCards, TOptions, TdefaultFilter, Tsort_type } from '../types/types';
 
 class App {
     view: AppView;
@@ -28,6 +28,15 @@ class App {
         };
         this.search = '';
         this.data = data;
+    }
+    sortEvent() {
+        const sort = document.querySelector('.sort-select') as HTMLSelectElement;
+        sort.addEventListener('change', () => {
+            const value = sort.options[sort.selectedIndex]['value'] as Tsort_type;
+            this.options.sortSettings.type = value;
+            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options, this.search);
+            else this.startSort(this.options);
+        });
     }
     searchEvent() {
         const search = document.querySelector('.search-input') as HTMLInputElement;
@@ -74,6 +83,12 @@ class App {
             });
         });
     }
+    startSort(options: TOptions) {
+        this.clearCardList();
+        this.controller.sort(this.data, options, (data: TCards) => {
+            this.view.renderCards(data);
+        });
+    }
     startFilter(options: TOptions, search: string) {
         let newData = this.data;
         this.clearCardList();
@@ -94,24 +109,15 @@ class App {
         cardsList.innerHTML = '';
     }
     start() {
-        const button = document.querySelector('.button-swap') as HTMLButtonElement;
-        button.addEventListener('click', () => {
-            this.startFilter(this.options, this.search);
-            this.options.sortSettings.direction === 'line'
-                ? (this.options.sortSettings.direction = 'reverse')
-                : (this.options.sortSettings.direction = 'line');
-        });
-
         this.view.renderFilterArea();
         this.view.renderSearch();
         this.view.renderSortArea();
 
         this.checkboxEvent();
         this.searchEvent();
+        this.sortEvent();
 
-        this.controller.sort(this.data, this.options, (data: TCards) => {
-            this.view.renderCards(data);
-        });
+        this.view.renderCards(this.data);
     }
 }
 
