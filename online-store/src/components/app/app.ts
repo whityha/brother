@@ -37,20 +37,27 @@ class App {
         cartBtns.forEach((item) => {
             item.addEventListener('click', (e) => {
                 if (e.target) {
-                    if (this.cartItems.length < 20) {
+                    if (this.cartItems.length <= 20) {
+                        const changeCart = () => {
+                            cartBtn.classList.toggle('added');
+                            this.clearBox('.cart');
+                            this.view.renderCart(this.cartItems.length);
+                        };
                         const cartBtn = e.target as HTMLButtonElement;
                         const cardId = cartBtn.dataset.id;
-                        if (!cartBtn.classList.contains('added') && cardId) {
+                        console.log(this.cartItems.length);
+                        if (!cartBtn.classList.contains('added') && cardId && this.cartItems.length < 20) {
                             this.cartItems.push(cardId);
                             cartBtn.innerText = 'Добавлено!';
-                        } else {
+                            changeCart();
+                        } else if (!cartBtn.classList.contains('added') && cardId && this.cartItems.length == 20) {
+                            alert('Извините, корзина заполнена. Удлаить из корзины что нибдуь');
+                        } else if (cartBtn.classList.contains('added') && cardId) {
                             const i = this.cartItems.findIndex((item) => item == cardId);
                             this.cartItems.splice(i, 1);
                             cartBtn.innerText = 'В корзину';
+                            changeCart();
                         }
-                        cartBtn.classList.toggle('added');
-                        this.clearBox('.cart');
-                        this.view.renderCart(this.cartItems.length);
                     } else throw new Error('В корзине уже больше 20 штук');
                 }
             });
