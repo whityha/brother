@@ -22,13 +22,13 @@ class App {
         };
         this.defauleFilterSetting = {
             filterSetting: {
-                color: ['черный', 'красный', 'белый', 'зеленый'],
                 country: ['Индия', 'Китай', 'Англия', 'Индонезия'],
             },
         };
         this.data = data;
     }
     checkboxEvent() {
+        //навешиваеем обработчики событий на чекбоксы, для изменения настроек фильтрации
         const checkboxes = document.querySelectorAll('.filter-area input[type=checkbox]');
         console.log(checkboxes);
         checkboxes.forEach((checkbox) => {
@@ -65,6 +65,7 @@ class App {
         this.clearCardList();
         newData = this.controller.sort(newData, options);
         if (!Object.keys(options.filterSetting).length) {
+            // если нет настроек для фильтра, мы используем дефолтные настройки для фильтрации
             this.controller.filter(newData, this.defauleFilterSetting, (data: TCards) => {
                 this.view.renderCards(data);
             });
