@@ -42,9 +42,8 @@ export default class Cards {
             buttonCart.addEventListener('click', (e) => {
                 if (e.target) {
                     const btnCart = e.target as HTMLDivElement;
-                    const btnId = btnCart.dataset.id;
                     if (!btnCart.classList.contains('added')) {
-                        console.log('cart', btnId);
+                        console.log('Card has been added in cart');
                     }
                 }
             });

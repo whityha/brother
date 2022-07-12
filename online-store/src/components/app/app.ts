@@ -48,7 +48,6 @@ class App {
                         };
                         const cartBtn = e.target as HTMLButtonElement;
                         const cardId = cartBtn.dataset.id;
-                        console.log(this.cartItems.length);
                         if (!cartBtn.classList.contains('added') && cardId && this.cartItems.length < 20) {
                             this.cartItems.push(cardId);
                             cartBtn.innerText = 'Добавлено!';
@@ -100,7 +99,6 @@ class App {
     checkboxEvent() {
         //навешиваеем обработчики событий на чекбоксы, для изменения настроек фильтрации
         const checkboxes = document.querySelectorAll('.filter-area input[type=checkbox]');
-        console.log(checkboxes);
         checkboxes.forEach((checkbox) => {
             checkbox.addEventListener('change', (e) => {
                 if (e.target) {

@@ -48,7 +48,6 @@ class Slider {
             },
         });
         ((dateSlider as unknown) as TDSlider).noUiSlider.on('update', (values: number[]) => {
-            console.log(values);
             valueBefore.innerText = Math.round(values[0]).toString();
             valueAfter.innerText = Math.round(values[1]).toString();
         });

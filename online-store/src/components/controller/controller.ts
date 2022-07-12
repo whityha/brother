@@ -58,7 +58,6 @@ export default class AppController {
                 });
             }
         }
-        console.log(newData);
         callback(newData);
     }
 }
