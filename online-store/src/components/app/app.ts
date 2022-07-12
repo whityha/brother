@@ -9,6 +9,7 @@ class App {
     readonly defauleFilterSetting: TdefaultFilter;
     data: TCards;
     cartItems: string[];
+    readonly defaultOptions: TOptions;
     constructor(data: TCards) {
         this.view = new AppView();
         this.controller = new AppController();
@@ -24,7 +25,19 @@ class App {
             search: '',
             filterSliders: {
                 sliderDate: [2017, 2022, 2017, 2022],
-                sliderPrice: [500, 2500, 9, 2800],
+                sliderPrice: [5, 45, 0, 45],
+            },
+        };
+        this.defaultOptions = {
+            sortSettings: {
+                direction: 'line',
+                type: 'date',
+            },
+            filterSetting: {},
+            search: '',
+            filterSliders: {
+                sliderDate: [2017, 2022, 2017, 2022],
+                sliderPrice: [0, 45, 0, 45],
             },
         };
         this.defauleFilterSetting = {
@@ -39,26 +52,15 @@ class App {
         const reset = document.querySelector('.filter-reset') as HTMLButtonElement;
         const resetAll = document.querySelector('.all-reset') as HTMLButtonElement;
         reset.addEventListener('click', () => {
-            this.options = {
-                sortSettings: {
-                    direction: 'line',
-                    type: 'date',
-                },
-                filterSetting: {},
-                search: '',
-                filterSliders: {
-                    sliderDate: [2017, 2022, 2017, 2022],
-                    sliderPrice: [9, 2800, 9, 2800],
-                },
-            };
+            this.options = JSON.parse(JSON.stringify(this.defaultOptions));
             this.startFilter(this.options);
-
             this.view.renderFilterArea(this.options);
 
             this.checkboxEvent();
             this.filterSliderEvent();
         });
     }
+
     private cardsEvent() {
         const cartBtns = document.querySelectorAll('.on-cart');
         cartBtns.forEach((item) => {
