@@ -24,7 +24,7 @@ class App {
             search: '',
             filterSliders: {
                 sliderDate: [2017, 2022, 2017, 2022],
-                sliderPrice: [9, 280, 9, 280],
+                sliderPrice: [500, 2500, 9, 2800],
             },
         };
         this.defauleFilterSetting = {
@@ -35,7 +35,31 @@ class App {
         this.data = data;
     }
 
-    cardsEvent() {
+    private resetEvent() {
+        const reset = document.querySelector('.filter-reset') as HTMLButtonElement;
+        const resetAll = document.querySelector('.all-reset') as HTMLButtonElement;
+        reset.addEventListener('click', () => {
+            this.options = {
+                sortSettings: {
+                    direction: 'line',
+                    type: 'date',
+                },
+                filterSetting: {},
+                search: '',
+                filterSliders: {
+                    sliderDate: [2017, 2022, 2017, 2022],
+                    sliderPrice: [9, 2800, 9, 2800],
+                },
+            };
+            this.startFilter(this.options);
+
+            this.view.renderFilterArea(this.options);
+
+            this.checkboxEvent();
+            this.filterSliderEvent();
+        });
+    }
+    private cardsEvent() {
         const cartBtns = document.querySelectorAll('.on-cart');
         cartBtns.forEach((item) => {
             item.addEventListener('click', (e) => {
@@ -66,7 +90,7 @@ class App {
         });
     }
 
-    sortEvent() {
+    private sortEvent() {
         const sort = document.querySelector('.sort-select') as HTMLSelectElement;
         const sortBtn = document.querySelector('.sort-button') as HTMLButtonElement;
         sortBtn.addEventListener('click', () => {
@@ -83,7 +107,7 @@ class App {
         });
     }
 
-    searchEvent() {
+    private searchEvent() {
         const search = document.querySelector('.search-input') as HTMLInputElement;
         const clearBtn = document.querySelector('.search-icon') as HTMLButtonElement;
         clearBtn.addEventListener('click', () => {
@@ -96,7 +120,7 @@ class App {
         });
     }
 
-    checkboxEvent() {
+    private checkboxEvent() {
         //навешиваеем обработчики событий на чекбоксы, для изменения настроек фильтрации
         const checkboxes = document.querySelectorAll('.filter-area input[type=checkbox]');
         checkboxes.forEach((checkbox) => {
@@ -127,7 +151,7 @@ class App {
         });
     }
 
-    startSort(options: TOptions) {
+    private startSort(options: TOptions) {
         this.clearBox('.card-list');
         this.controller.sort(this.data, options, (data: TCards) => {
             this.view.renderCards(data, this.cartItems);
@@ -135,7 +159,7 @@ class App {
         this.cardsEvent();
     }
 
-    startFilter(options: TOptions) {
+    private startFilter(options: TOptions) {
         let newData = this.data;
         this.clearBox('.card-list');
         newData = this.controller.sort(newData, options);
@@ -164,11 +188,11 @@ class App {
         this.cardsEvent();
     }
 
-    clearBox(className: string) {
+    private clearBox(className: string) {
         const cardsList = document.querySelector(`${className}`) as HTMLElement;
         cardsList.innerHTML = '';
     }
-    filterSliderEvent() {
+    private filterSliderEvent() {
         const sliderDate = document.querySelector('.slider-date') as HTMLDivElement;
         const sliderPrice = document.querySelector('.slider-price') as HTMLDivElement;
         ((sliderDate as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
@@ -180,7 +204,7 @@ class App {
             this.startFilter(this.options);
         });
     }
-    start() {
+    public start() {
         this.view.renderFilterArea(this.options);
         this.view.renderSearch();
         this.view.renderSortArea();
@@ -190,6 +214,7 @@ class App {
         this.searchEvent();
         this.sortEvent();
         this.filterSliderEvent();
+        this.resetEvent();
 
         this.startFilter(this.options);
     }
