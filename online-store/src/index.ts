@@ -162,7 +162,7 @@ const data = [
         type: 'чай',
         box: 'листовой',
         color: 'красный',
-        country: 'Анлгия',
+        country: 'Англия',
         price: 10,
         date: 2022,
     },
