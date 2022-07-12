@@ -21,7 +21,11 @@ type TCountry = ('Индия' | 'Китай' | 'Англия' | 'Индонез�
 type Tsort_direction = 'line' | 'reverse';
 
 type Tsort_type = 'date' | 'price';
-
+type TDSlider = {
+    noUiSlider: {
+        [index: string]: (arg0: string, callback: (values: number[], handle: number) => void) => void;
+    };
+};
 type TOptions = {
     sortSettings: {
         direction: Tsort_direction;
@@ -32,9 +36,9 @@ type TOptions = {
     };
     search: string;
     filterSliders: {
-        sliderDate?: [number, number];
+        sliderDate: [number, number];
         sliderPrice?: [number, number];
     };
 };
 type TdefaultFilter = Pick<TOptions, 'filterSetting'>;
-export { TCard, TCards, TCallBack, TOptions, TdefaultFilter, Tsort_type, Tsort_direction };
+export { TCard, TCards, TCallBack, TOptions, TdefaultFilter, Tsort_type, Tsort_direction, TDSlider };

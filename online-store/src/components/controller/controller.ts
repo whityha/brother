@@ -12,22 +12,28 @@ export default class AppController {
         return sortData;
     }
 
-    filter(data: TCards, options: Pick<TOptions, 'filterSetting'>, search: string, callback: TCallBack): void {
+    filter(data: TCards, options: TOptions, search: string, callback: TCallBack): void {
         let newData: TCards = [];
         for (const key in options.filterSetting) {
             if (!newData.length) {
                 newData = data.filter((item) => {
-                    if (item.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
-                        return options.filterSetting[key].some((value) => {
-                            switch (typeof item[key]) {
-                                case 'number':
-                                    return value == item[key];
-                                case 'boolean':
-                                    return value === item[key].toString();
-                                case 'string':
-                                    return value.toLowerCase() === (item[key] as string).toLowerCase();
-                            }
-                        });
+                    if (
+                        item.date >= options.filterSliders.sliderDate[0] &&
+                        item.date <= options.filterSliders.sliderDate[1]
+                    ) {
+                        if (item.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
+                            return options.filterSetting[key].some((value) => {
+                                switch (typeof item[key]) {
+                                    case 'number':
+                                        return value == item[key];
+                                    case 'boolean':
+                                        return value === item[key].toString();
+                                    case 'string':
+                                        return value.toLowerCase() === (item[key] as string).toLowerCase();
+                                }
+                            });
+                        }
+                        return false; // TODO - сделать запись что совпалений не найдено
                     }
                     return false;
                 });

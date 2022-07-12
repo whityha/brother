@@ -1,10 +1,12 @@
 import { IfilterAreaOptions } from '../../types/interfaces';
 import './filter.sass';
 import 'nouislider/dist/nouislider.css';
-import { dateBox } from './filter-range/filter-range-date';
+import { SliderDate } from './filter-range/filter-range-date';
 export default class FilterArea {
     readonly filterAreaOptions: IfilterAreaOptions;
+    sliderDate: SliderDate;
     constructor() {
+        this.sliderDate = new SliderDate();
         this.filterAreaOptions = {
             discount: {
                 values: ['true'],
@@ -59,7 +61,7 @@ export default class FilterArea {
     }
     public render() {
         const container = document.querySelector('.filter-area') as HTMLDivElement;
-        container.append(dateBox);
+        container.append(this.sliderDate.createSlider());
         if (this.filterAreaOptions) {
             for (const key in this.filterAreaOptions) {
                 const keyBox = this.makeFilterBox(

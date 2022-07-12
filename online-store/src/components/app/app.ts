@@ -1,6 +1,6 @@
 import AppView from '../view/appView';
 import AppController from '../controller/controller';
-import { TCards, TOptions, TdefaultFilter, Tsort_type, Tsort_direction } from '../types/types';
+import { TCards, TOptions, TdefaultFilter, Tsort_type, Tsort_direction, TDSlider } from '../types/types';
 
 class App {
     view: AppView;
@@ -22,7 +22,9 @@ class App {
                 // discount: ['true'],
             },
             search: '',
-            filterSliders: {},
+            filterSliders: {
+                sliderDate: [2017, 2022],
+            },
         };
         this.defauleFilterSetting = {
             filterSetting: {
@@ -104,7 +106,6 @@ class App {
                     const checkbox = e.target as HTMLInputElement;
                     const checkboxValue = checkbox.value as string;
                     const checkboxName = checkbox.name as string;
-
                     if (checkbox.checked) {
                         if (this.options.filterSetting) {
                             const array: string[] = this.options.filterSetting[checkboxName] || [];
@@ -141,7 +142,8 @@ class App {
         newData = this.controller.sort(newData, options);
         if (!Object.keys(options.filterSetting).length) {
             // если нет настроек для фильтра, мы используем дефолтные настройки для фильтрации
-            this.controller.filter(newData, this.defauleFilterSetting, options.search, (data: TCards) => {
+            this.options.filterSetting = this.defauleFilterSetting.filterSetting;
+            this.controller.filter(newData, this.options, options.search, (data: TCards) => {
                 this.view.renderCards(data, this.cartItems);
             });
         } else {
@@ -156,7 +158,14 @@ class App {
         const cardsList = document.querySelector(`${className}`) as HTMLElement;
         cardsList.innerHTML = '';
     }
-
+    filterSliderEvent() {
+        const sliderDate = document.querySelector('.noUi-target') as HTMLDivElement;
+        console.log(sliderDate);
+        ((sliderDate as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
+            this.options.filterSliders.sliderDate[handle] = Math.round(values[handle]);
+            this.startFilter(this.options);
+        });
+    }
     start() {
         this.view.renderFilterArea();
         this.view.renderSearch();
@@ -166,6 +175,7 @@ class App {
         this.checkboxEvent();
         this.searchEvent();
         this.sortEvent();
+        this.filterSliderEvent();
 
         this.startSort(this.options);
     }
