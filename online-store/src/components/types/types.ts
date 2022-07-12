@@ -34,8 +34,8 @@ type TsortSettings = {
     type: Tsort_type;
 };
 type TfilterSliders = {
-    sliderDate: [number, number];
-    sliderPrice?: [number, number];
+    sliderDate: number[];
+    sliderPrice: number[];
 };
 type TOptions = {
     sortSettings: TsortSettings;

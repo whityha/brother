@@ -23,20 +23,23 @@ export default class AppController {
         for (const key in filterSetting) {
             if (!newData.length) {
                 newData = data.filter((item) => {
-                    if (item.date >= filterSliders.sliderDate[0] && item.date <= filterSliders.sliderDate[1]) {
-                        if (item.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
-                            return filterSetting[key].some((value) => {
-                                switch (typeof item[key]) {
-                                    case 'number':
-                                        return value == item[key];
-                                    case 'boolean':
-                                        return value === item[key].toString();
-                                    case 'string':
-                                        return value.toLowerCase() === (item[key] as string).toLowerCase();
-                                }
-                            });
+                    if (item.price >= filterSliders.sliderPrice[0] && item.price <= filterSliders.sliderPrice[1]) {
+                        if (item.date >= filterSliders.sliderDate[0] && item.date <= filterSliders.sliderDate[1]) {
+                            if (item.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
+                                return filterSetting[key].some((value) => {
+                                    switch (typeof item[key]) {
+                                        case 'number':
+                                            return value == item[key];
+                                        case 'boolean':
+                                            return value === item[key].toString();
+                                        case 'string':
+                                            return value.toLowerCase() === (item[key] as string).toLowerCase();
+                                    }
+                                });
+                            }
+                            return false; // TODO - сделать запись что совпалений не найдено
                         }
-                        return false; // TODO - сделать запись что совпалений не найдено
+                        return false;
                     }
                     return false;
                 });

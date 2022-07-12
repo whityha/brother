@@ -1,24 +1,32 @@
 import noUiSlider from 'nouislider';
 import './filter-range-date.sass';
 import { TDSlider } from '../../../types/types';
-type TSlider = {
-    start: [number, number];
-    connect: boolean;
-    step: number;
-    range: {
-        min: number[];
-        max: number[];
-    };
-};
 
-class SliderDate {
+class Slider {
+    start: number;
+    end: number;
+    min: number;
+    max: number;
+    className: string;
+    headTitle: string;
+    constructor(prop: number[], className: string, headTitle: string) {
+        this.start = prop[0];
+        this.end = prop[1];
+        this.min = prop[2];
+        this.max = prop[3];
+        this.className = className;
+        this.headTitle = headTitle;
+    }
     createSlider() {
         const sliderBox = document.createElement('div');
+        const sliderHead = document.createElement('div');
         const dateSlider = document.createElement('div');
 
         const valueBefore = document.createElement('div');
         const valueAfter = document.createElement('div');
 
+        sliderHead.innerText = `${this.headTitle}`;
+        sliderHead.className = 'slider-head';
         const createValuesBox = () => {
             const valuesBox = document.createElement('div');
             valuesBox.className = 'values-box';
@@ -28,13 +36,15 @@ class SliderDate {
             return valuesBox;
         };
         const valuesBox = createValuesBox();
+
+        dateSlider.className = `slider-range slider-${this.className}`;
         noUiSlider.create(dateSlider, {
-            start: [2017, 2022],
+            start: [this.start, this.end],
             connect: true,
             step: 1,
             range: {
-                min: [2017],
-                max: [2022],
+                min: [this.min],
+                max: [this.max],
             },
         });
         ((dateSlider as unknown) as TDSlider).noUiSlider.on('update', (values: number[]) => {
@@ -43,9 +53,8 @@ class SliderDate {
             valueAfter.innerText = Math.round(values[1]).toString();
         });
 
-        sliderBox.append(dateSlider, valuesBox);
+        sliderBox.append(sliderHead, dateSlider, valuesBox);
         return sliderBox;
     }
 }
-
-export { SliderDate };
+export { Slider };

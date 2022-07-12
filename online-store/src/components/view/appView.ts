@@ -1,5 +1,5 @@
 import Cards from './cards/cards';
-import { TCards } from '../types/types';
+import { TCards, TOptions } from '../types/types';
 import FilterArea from './filter/filter-area';
 import SearchArea from './search/search-area';
 import SortArea from './sort/sort-area';
@@ -25,8 +25,8 @@ export default class AppView {
     renderCards(data: TCards, cartItems: string[]) {
         this.cards.render(data, cartItems);
     }
-    renderFilterArea() {
-        this.filterArea.render();
+    renderFilterArea(options: TOptions) {
+        this.filterArea.render(options);
     }
     renderSearch() {
         this.searchArea.render();

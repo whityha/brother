@@ -23,7 +23,8 @@ class App {
             },
             search: '',
             filterSliders: {
-                sliderDate: [2017, 2022],
+                sliderDate: [2017, 2022, 2017, 2022],
+                sliderPrice: [9, 280, 9, 280],
             },
         };
         this.defauleFilterSetting = {
@@ -170,15 +171,19 @@ class App {
         cardsList.innerHTML = '';
     }
     filterSliderEvent() {
-        const sliderDate = document.querySelector('.noUi-target') as HTMLDivElement;
-        console.log(sliderDate);
+        const sliderDate = document.querySelector('.slider-date') as HTMLDivElement;
+        const sliderPrice = document.querySelector('.slider-price') as HTMLDivElement;
         ((sliderDate as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
             this.options.filterSliders.sliderDate[handle] = Math.round(values[handle]);
             this.startFilter(this.options);
         });
+        ((sliderPrice as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
+            this.options.filterSliders.sliderPrice[handle] = Math.round(values[handle]);
+            this.startFilter(this.options);
+        });
     }
     start() {
-        this.view.renderFilterArea();
+        this.view.renderFilterArea(this.options);
         this.view.renderSearch();
         this.view.renderSortArea();
         this.view.renderCart(this.cartItems.length);
@@ -188,7 +193,7 @@ class App {
         this.sortEvent();
         this.filterSliderEvent();
 
-        this.startSort(this.options);
+        this.startFilter(this.options);
     }
 }
 
