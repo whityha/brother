@@ -1,7 +1,7 @@
 import AppView from '../view/appView';
 import AppController from '../controller/controller';
 import { TCards, TOptions, TdefaultFilter, Tsort_type, Tsort_direction, TDSlider } from '../types/types';
-
+const MAX_CART_COUNT = 6;
 class App {
     view: AppView;
     controller: AppController;
@@ -66,7 +66,7 @@ class App {
         cartBtns.forEach((item) => {
             item.addEventListener('click', (e) => {
                 if (e.target) {
-                    if (this.cartItems.length <= 20) {
+                    if (this.cartItems.length <= MAX_CART_COUNT) {
                         const changeCart = () => {
                             cartBtn.classList.toggle('added');
                             this.clearBox('.cart');
@@ -74,11 +74,15 @@ class App {
                         };
                         const cartBtn = e.target as HTMLButtonElement;
                         const cardId = cartBtn.dataset.id;
-                        if (!cartBtn.classList.contains('added') && cardId && this.cartItems.length < 20) {
+                        if (!cartBtn.classList.contains('added') && cardId && this.cartItems.length < MAX_CART_COUNT) {
                             this.cartItems.push(cardId);
                             cartBtn.innerText = 'Добавлено!';
                             changeCart();
-                        } else if (!cartBtn.classList.contains('added') && cardId && this.cartItems.length == 20) {
+                        } else if (
+                            !cartBtn.classList.contains('added') &&
+                            cardId &&
+                            this.cartItems.length == MAX_CART_COUNT
+                        ) {
                             alert('Извините, корзина заполнена. Удлаить из корзины что нибдуь');
                         } else if (cartBtn.classList.contains('added') && cardId) {
                             const i = this.cartItems.findIndex((item) => item == cardId);
@@ -86,7 +90,7 @@ class App {
                             cartBtn.innerText = 'В корзину';
                             changeCart();
                         }
-                    } else throw new Error('В корзине уже больше 20 штук');
+                    } else throw new Error(`В корзине уже больше ${MAX_CART_COUNT} штук`);
                 }
             });
         });
