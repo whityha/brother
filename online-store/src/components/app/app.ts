@@ -8,7 +8,6 @@ class App {
     options: TOptions;
     readonly defauleFilterSetting: TdefaultFilter;
     data: TCards;
-    search: string;
     cartItems: string[];
     constructor(data: TCards) {
         this.view = new AppView();
@@ -22,13 +21,14 @@ class App {
             filterSetting: {
                 // discount: ['true'],
             },
+            search: '',
+            filterSliders: {},
         };
         this.defauleFilterSetting = {
             filterSetting: {
                 country: ['Индия', 'Китай', 'Англия', 'Индонезия'],
             },
         };
-        this.search = '';
         this.data = data;
     }
 
@@ -70,13 +70,13 @@ class App {
         sortBtn.addEventListener('click', () => {
             const value = sortBtn.value as Tsort_direction;
             this.options.sortSettings.direction = value;
-            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options, this.search);
+            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options);
             else this.startSort(this.options);
         });
         sort.addEventListener('change', () => {
             const value = sort.options[sort.selectedIndex]['value'] as Tsort_type;
             this.options.sortSettings.type = value;
-            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options, this.search);
+            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options);
             else this.startSort(this.options);
         });
     }
@@ -85,12 +85,12 @@ class App {
         const search = document.querySelector('.search-input') as HTMLInputElement;
         const clearBtn = document.querySelector('.search-icon') as HTMLButtonElement;
         clearBtn.addEventListener('click', () => {
-            this.search = '';
-            this.startFilter(this.options, this.search);
+            this.options.search = '';
+            this.startFilter(this.options);
         });
         search.addEventListener('input', () => {
-            this.search = search.value;
-            this.startFilter(this.options, this.search);
+            this.options.search = search.value;
+            this.startFilter(this.options);
         });
     }
 
@@ -114,15 +114,14 @@ class App {
                     } else {
                         if (this.options.filterSetting) {
                             const i = this.options.filterSetting[checkboxName].findIndex(
-                                (item) => item === checkboxValue
+                                (item) => item.toLowerCase() === checkboxValue.toLowerCase()
                             );
                             this.options.filterSetting[checkboxName].splice(i, 1);
                             if (!this.options.filterSetting[checkboxName].length)
                                 delete this.options.filterSetting[checkboxName];
                         }
                     }
-                    console.log(this.options.filterSetting);
-                    this.startFilter(this.options, this.search);
+                    this.startFilter(this.options);
                 }
             });
         });
@@ -136,17 +135,17 @@ class App {
         this.cardsEvent();
     }
 
-    startFilter(options: TOptions, search: string) {
+    startFilter(options: TOptions) {
         let newData = this.data;
         this.clearBox('.card-list');
         newData = this.controller.sort(newData, options);
         if (!Object.keys(options.filterSetting).length) {
             // если нет настроек для фильтра, мы используем дефолтные настройки для фильтрации
-            this.controller.filter(newData, this.defauleFilterSetting, search, (data: TCards) => {
+            this.controller.filter(newData, this.defauleFilterSetting, options.search, (data: TCards) => {
                 this.view.renderCards(data, this.cartItems);
             });
         } else {
-            this.controller.filter(newData, options, search, (data: TCards) => {
+            this.controller.filter(newData, options, options.search, (data: TCards) => {
                 this.view.renderCards(data, this.cartItems);
             });
         }

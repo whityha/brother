@@ -30,6 +30,11 @@ type TOptions = {
     filterSetting: {
         [index: string]: string[];
     };
+    search: string;
+    filterSliders: {
+        sliderDate?: [number, number];
+        sliderPrice?: [number, number];
+    };
 };
 type TdefaultFilter = Pick<TOptions, 'filterSetting'>;
 export { TCard, TCards, TCallBack, TOptions, TdefaultFilter, Tsort_type, Tsort_direction };
