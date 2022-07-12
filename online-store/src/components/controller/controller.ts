@@ -1,4 +1,4 @@
-import { TCallBack, TOptions, TCards } from '../types/types';
+import { TCallBack, TOptions, TCards, TfilterSetting, TfilterSliders } from '../types/types';
 export default class AppController {
     sort(data: TCards, options: Pick<TOptions, 'sortSettings'>, callback?: TCallBack): TCards {
         const sortData = data.sort((a, b) => {
@@ -12,17 +12,20 @@ export default class AppController {
         return sortData;
     }
 
-    filter(data: TCards, options: TOptions, search: string, callback: TCallBack): void {
+    filter(
+        data: TCards,
+        filterSetting: TfilterSetting,
+        search: string,
+        filterSliders: TfilterSliders,
+        callback: TCallBack
+    ): void {
         let newData: TCards = [];
-        for (const key in options.filterSetting) {
+        for (const key in filterSetting) {
             if (!newData.length) {
                 newData = data.filter((item) => {
-                    if (
-                        item.date >= options.filterSliders.sliderDate[0] &&
-                        item.date <= options.filterSliders.sliderDate[1]
-                    ) {
+                    if (item.date >= filterSliders.sliderDate[0] && item.date <= filterSliders.sliderDate[1]) {
                         if (item.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
-                            return options.filterSetting[key].some((value) => {
+                            return filterSetting[key].some((value) => {
                                 switch (typeof item[key]) {
                                     case 'number':
                                         return value == item[key];
@@ -39,7 +42,7 @@ export default class AppController {
                 });
             } else {
                 newData = newData.filter((item) => {
-                    return options.filterSetting[key].some((value) => {
+                    return filterSetting[key].some((value) => {
                         switch (typeof item[key]) {
                             case 'number':
                                 return value == item[key];

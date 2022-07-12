@@ -16,8 +16,8 @@ type TCard = {
 };
 type TCards = TCard[];
 type TCallBack = (data: TCards) => void;
-type TColors = ('черный' | 'красный' | 'белый' | 'зеленый')[];
-type TCountry = ('Индия' | 'Китай' | 'Англия' | 'Индонезия')[];
+// type TColors = ('черный' | 'красный' | 'белый' | 'зеленый')[];
+// type TCountry = ('Индия' | 'Китай' | 'Англия' | 'Индонезия')[];
 type Tsort_direction = 'line' | 'reverse';
 
 type Tsort_type = 'date' | 'price';
@@ -26,19 +26,34 @@ type TDSlider = {
         [index: string]: (arg0: string, callback: (values: number[], handle: number) => void) => void;
     };
 };
+type TfilterSetting = {
+    [index: string]: string[];
+};
+type TsortSettings = {
+    direction: Tsort_direction;
+    type: Tsort_type;
+};
+type TfilterSliders = {
+    sliderDate: [number, number];
+    sliderPrice?: [number, number];
+};
 type TOptions = {
-    sortSettings: {
-        direction: Tsort_direction;
-        type: Tsort_type;
-    };
-    filterSetting: {
-        [index: string]: string[];
-    };
+    sortSettings: TsortSettings;
+    filterSetting: TfilterSetting;
     search: string;
-    filterSliders: {
-        sliderDate: [number, number];
-        sliderPrice?: [number, number];
-    };
+    filterSliders: TfilterSliders;
 };
 type TdefaultFilter = Pick<TOptions, 'filterSetting'>;
-export { TCard, TCards, TCallBack, TOptions, TdefaultFilter, Tsort_type, Tsort_direction, TDSlider };
+export {
+    TCard,
+    TCards,
+    TCallBack,
+    TOptions,
+    TdefaultFilter,
+    Tsort_type,
+    Tsort_direction,
+    TDSlider,
+    TsortSettings,
+    TfilterSetting,
+    TfilterSliders,
+};

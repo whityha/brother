@@ -142,14 +142,25 @@ class App {
         newData = this.controller.sort(newData, options);
         if (!Object.keys(options.filterSetting).length) {
             // если нет настроек для фильтра, мы используем дефолтные настройки для фильтрации
-            this.options.filterSetting = this.defauleFilterSetting.filterSetting;
-            this.controller.filter(newData, this.options, options.search, (data: TCards) => {
-                this.view.renderCards(data, this.cartItems);
-            });
+            this.controller.filter(
+                newData,
+                this.defauleFilterSetting.filterSetting,
+                options.search,
+                options.filterSliders,
+                (data: TCards) => {
+                    this.view.renderCards(data, this.cartItems);
+                }
+            );
         } else {
-            this.controller.filter(newData, options, options.search, (data: TCards) => {
-                this.view.renderCards(data, this.cartItems);
-            });
+            this.controller.filter(
+                newData,
+                options.filterSetting,
+                options.search,
+                options.filterSliders,
+                (data: TCards) => {
+                    this.view.renderCards(data, this.cartItems);
+                }
+            );
         }
         this.cardsEvent();
     }
