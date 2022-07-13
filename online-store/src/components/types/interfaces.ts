@@ -1,22 +1,18 @@
 export interface IfilterAreaOptions {
     country: {
         values: string[];
-        pick: string;
+        name: string;
     };
     color: {
         values: string[];
-        pick: string;
+        name: string;
     };
     brand: {
         values: string[];
-        pick: string;
+        name: string;
     };
     discount: {
         values: [string];
-        pick: string;
-    };
-    date: {
-        values: string[];
-        pick: string;
+        name: string;
     };
 }

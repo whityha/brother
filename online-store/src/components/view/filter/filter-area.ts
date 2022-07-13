@@ -9,27 +9,23 @@ export default class FilterArea {
         this.filterAreaOptions = {
             discount: {
                 values: ['true'],
-                pick: 'Скидка',
+                name: 'Скидка',
             },
             country: {
                 values: ['Индия', 'Китай', 'Англия', 'Индонезия'],
-                pick: 'Страны',
+                name: 'Страны',
             },
             color: {
                 values: ['черный', 'белый', 'красный', 'зеленый'],
-                pick: 'Цвет',
+                name: 'Цвет',
             },
             brand: {
-                values: ['Lipton', 'Richard', 'Greenfield', 'AHMAD TEE'],
-                pick: 'Брэнд',
-            },
-            date: {
-                values: ['2022', '2021', '2020', '2019'],
-                pick: 'Год сбора урожая',
+                values: ['Lipton', 'Richard', 'Greenfield', 'Ahmad tea'],
+                name: 'Брэнд',
             },
         };
     }
-    private makeFilterBox(key: string, name: string, value: string[] | boolean[]) {
+    private makeFilterBox(key: string, name: string, value: string[], checkedValues: string[]) {
         const box = document.createElement('div');
         const filterBoxList = document.createElement('ul');
         const filterBoxName = document.createElement('p');
@@ -40,15 +36,18 @@ export default class FilterArea {
         if (value.length) {
             value.forEach((element) => {
                 const item = document.createElement('li');
+                item.className = `filter-box-item filter-box-${key}-item`;
+                item.innerText = element;
+                if (element == 'true' || element == 'false') item.innerText = 'Только со скидкой';
+
                 const checkbox = document.createElement('input') as HTMLInputElement;
                 checkbox.setAttribute('type', 'checkbox');
                 checkbox.setAttribute('name', key);
-                if (typeof element === 'string') checkbox.setAttribute('value', element);
-                item.className = `filter-box-item filter-box-${key}-item`;
-                if (typeof element === 'string') {
-                    item.innerText = element;
-                    if (element == 'true' || element == 'false') item.innerText = 'Только со скидкой';
-                }
+                checkbox.setAttribute('value', element);
+
+                if (checkedValues && checkedValues.some((checkbox) => checkbox.toLowerCase() === element.toLowerCase()))
+                    checkbox.setAttribute('checked', '');
+
                 item.prepend(checkbox);
                 filterBoxList.append(item);
             });
@@ -68,8 +67,9 @@ export default class FilterArea {
             for (const key in this.filterAreaOptions) {
                 const keyBox = this.makeFilterBox(
                     key,
-                    this.filterAreaOptions[key as keyof IfilterAreaOptions]['pick'],
-                    this.filterAreaOptions[key as keyof IfilterAreaOptions]['values']
+                    this.filterAreaOptions[key as keyof IfilterAreaOptions]['name'],
+                    this.filterAreaOptions[key as keyof IfilterAreaOptions]['values'],
+                    options.filterSetting[key]
                 ) as HTMLDivElement;
                 container.append(keyBox);
             }
