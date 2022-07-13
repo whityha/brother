@@ -14,4 +14,7 @@ export default class WebStorage {
         const object = JSON.stringify(value);
         localStorage.setItem(key, object);
     }
+    clear() {
+        localStorage.clear();
+    }
 }

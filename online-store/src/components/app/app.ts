@@ -17,20 +17,6 @@ class App {
         this.controller = new AppController();
         this.storage = new WebStorage();
         this.cartItems = [];
-        this.options = {
-            sortSettings: {
-                direction: 'line',
-                type: 'date',
-            },
-            filterSetting: {
-                // discount: ['true'],
-            },
-            search: '',
-            filterSliders: {
-                sliderDate: [2017, 2022, 2017, 2022],
-                sliderPrice: [5, 45, 0, 45],
-            },
-        };
         this.defaultOptions = {
             sortSettings: {
                 direction: 'line',
@@ -54,7 +40,6 @@ class App {
 
     private resetEvent() {
         const reset = document.querySelector('.filter-reset') as HTMLButtonElement;
-        const resetAll = document.querySelector('.all-reset') as HTMLButtonElement;
         reset.addEventListener('click', () => {
             this.options.filterSetting = JSON.parse(JSON.stringify(this.defaultOptions)).filterSetting;
             this.options.filterSliders = JSON.parse(JSON.stringify(this.defaultOptions)).filterSliders;
@@ -69,6 +54,12 @@ class App {
             this.searchEvent();
 
             this.storage.setItem('options', this.options);
+        });
+
+        const resetAll = document.querySelector('.all-reset') as HTMLButtonElement;
+        resetAll.addEventListener('click', () => {
+            this.storage.clear();
+            location.reload();
         });
     }
 
