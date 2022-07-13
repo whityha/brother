@@ -1,10 +1,12 @@
 import AppView from '../view/appView';
 import AppController from '../controller/controller';
+import WebStorage from '../view/web-storage/web-storage';
 import { TCards, TOptions, TdefaultFilter, Tsort_type, Tsort_direction, TDSlider } from '../types/types';
 const MAX_CART_COUNT = 6;
 class App {
     view: AppView;
     controller: AppController;
+    storage: WebStorage;
     options: TOptions;
     readonly defauleFilterSetting: TdefaultFilter;
     data: TCards;
@@ -13,6 +15,7 @@ class App {
     constructor(data: TCards) {
         this.view = new AppView();
         this.controller = new AppController();
+        this.storage = new WebStorage();
         this.cartItems = [];
         this.options = {
             sortSettings: {
@@ -40,6 +43,7 @@ class App {
                 sliderPrice: [0, 45, 0, 45],
             },
         };
+        this.options = this.storage.getItem('options') || JSON.parse(JSON.stringify(this.defaultOptions));
         this.defauleFilterSetting = {
             filterSetting: {
                 country: ['Индия', 'Китай', 'Англия', 'Индонезия'],
