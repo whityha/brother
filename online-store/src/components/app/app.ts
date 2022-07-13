@@ -66,6 +66,9 @@ class App {
 
             this.checkboxEvent();
             this.filterSliderEvent();
+            this.searchEvent();
+
+            this.storage.setItem('options', this.options);
         });
     }
 
@@ -133,10 +136,14 @@ class App {
         clearBtn.addEventListener('click', () => {
             this.options.search = '';
             this.startFilter(this.options);
+
+            this.storage.setItem('options', this.options);
         });
         search.addEventListener('input', () => {
             this.options.search = search.value;
             this.startFilter(this.options);
+
+            this.storage.setItem('options', this.options);
         });
     }
 
@@ -166,6 +173,8 @@ class App {
                         }
                     }
                     this.startFilter(this.options);
+
+                    this.storage.setItem('options', this.options);
                 }
             });
         });
@@ -218,10 +227,14 @@ class App {
         ((sliderDate as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
             this.options.filterSliders.sliderDate[handle] = Math.round(values[handle]);
             this.startFilter(this.options);
+
+            this.storage.setItem('options', this.options);
         });
         ((sliderPrice as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
             this.options.filterSliders.sliderPrice[handle] = Math.round(values[handle]);
             this.startFilter(this.options);
+
+            this.storage.setItem('options', this.options);
         });
     }
     public start() {
