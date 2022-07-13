@@ -143,7 +143,7 @@ const data = [
         image: {
             src: './assets/images/impra_green.jpg',
         },
-        brand: 'IMPRA BLACK',
+        brand: 'IMPRA',
         type: 'чай',
         box: 'листовой',
         color: 'зеленый',

@@ -1,4 +1,4 @@
-import { TCallBack, TOptions, TCards, TfilterSetting, TfilterSliders } from '../types/types';
+import { TCallBack, TOptions, TCards, TfilterSetting, TfilterSliders, TCard } from '../types/types';
 export default class AppController {
     sort(data: TCards, options: Pick<TOptions, 'sortSettings'>, callback?: TCallBack): TCards {
         const sortData = data.sort((a, b) => {
@@ -20,42 +20,38 @@ export default class AppController {
         callback: TCallBack
     ): void {
         let newData: TCards = [];
+        const filteringCard = (key: string, card: TCard) => {
+            if (card.price >= filterSliders.sliderPrice[0] && card.price <= filterSliders.sliderPrice[1]) {
+                if (card.date >= filterSliders.sliderDate[0] && card.date <= filterSliders.sliderDate[1]) {
+                    if (card.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
+                        return filterSetting[key].some((value) => {
+                            switch (typeof card[key]) {
+                                case 'number':
+                                    return value == card[key];
+                                case 'boolean':
+                                    return value === card[key].toString();
+                                case 'string':
+                                    return value.toLowerCase() === (card[key] as string).toLowerCase();
+                            }
+                        });
+                    }
+                    return false; // TODO - сделать запись что совпалений не найдено
+                }
+                return false;
+            }
+            return false;
+        };
         for (const key in filterSetting) {
             if (!newData.length) {
-                newData = data.filter((item) => {
-                    if (item.price >= filterSliders.sliderPrice[0] && item.price <= filterSliders.sliderPrice[1]) {
-                        if (item.date >= filterSliders.sliderDate[0] && item.date <= filterSliders.sliderDate[1]) {
-                            if (item.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {
-                                return filterSetting[key].some((value) => {
-                                    switch (typeof item[key]) {
-                                        case 'number':
-                                            return value == item[key];
-                                        case 'boolean':
-                                            return value === item[key].toString();
-                                        case 'string':
-                                            return value.toLowerCase() === (item[key] as string).toLowerCase();
-                                    }
-                                });
-                            }
-                            return false; // TODO - сделать запись что совпалений не найдено
-                        }
-                        return false;
-                    }
-                    return false;
+                newData = data.filter((card) => {
+                    return filteringCard(key, card);
                 });
             } else {
-                newData = newData.filter((item) => {
-                    return filterSetting[key].some((value) => {
-                        switch (typeof item[key]) {
-                            case 'number':
-                                return value == item[key];
-                            case 'boolean':
-                                return value === item[key].toString();
-                            case 'string':
-                                return value.toLowerCase() === (item[key] as string).toLowerCase();
-                        }
-                    });
+                newData = newData.filter((card) => {
+                    return filteringCard(key, card);
                 });
+                // в случае, если в Data уже нет карточек, мы прерываем выполнение фильтрации, иначе попадет под первое условие
+                if (newData.length === 0) break;
             }
         }
         callback(newData);
