@@ -103,17 +103,23 @@ class App {
     private sortEvent() {
         const sort = document.querySelector('.sort-select') as HTMLSelectElement;
         const sortBtn = document.querySelector('.sort-button') as HTMLButtonElement;
+        // клик сортировки по возрастанию либо убыванию
         sortBtn.addEventListener('click', () => {
             const value = sortBtn.value as Tsort_direction;
             this.options.sortSettings.direction = value;
             if (Object.keys(this.options.filterSetting)) this.startFilter(this.options);
             else this.startSort(this.options);
+
+            this.storage.setItem('options', this.options);
         });
+        // изменения select по разным критериям сортировки
         sort.addEventListener('change', () => {
             const value = sort.options[sort.selectedIndex]['value'] as Tsort_type;
             this.options.sortSettings.type = value;
             if (Object.keys(this.options.filterSetting)) this.startFilter(this.options);
             else this.startSort(this.options);
+
+            this.storage.setItem('options', this.options);
         });
     }
 
@@ -217,7 +223,7 @@ class App {
     public start() {
         this.view.renderFilterArea(this.options);
         this.view.renderSearch();
-        this.view.renderSortArea();
+        this.view.renderSortArea(this.options);
         this.view.renderCart(this.cartItems.length);
 
         this.checkboxEvent();

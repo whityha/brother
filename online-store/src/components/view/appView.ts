@@ -31,7 +31,7 @@ export default class AppView {
     renderSearch() {
         this.searchArea.render();
     }
-    renderSortArea() {
-        this.sortArea.render();
+    renderSortArea(options: TOptions) {
+        this.sortArea.render(options);
     }
 }
