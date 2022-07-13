@@ -56,9 +56,13 @@ class App {
         const reset = document.querySelector('.filter-reset') as HTMLButtonElement;
         const resetAll = document.querySelector('.all-reset') as HTMLButtonElement;
         reset.addEventListener('click', () => {
-            this.options = JSON.parse(JSON.stringify(this.defaultOptions));
+            this.options.filterSetting = JSON.parse(JSON.stringify(this.defaultOptions)).filterSetting;
+            this.options.filterSliders = JSON.parse(JSON.stringify(this.defaultOptions)).filterSliders;
+            this.options.search = '';
+
             this.startFilter(this.options);
             this.view.renderFilterArea(this.options);
+            this.view.renderSearch(this.options);
 
             this.checkboxEvent();
             this.filterSliderEvent();
