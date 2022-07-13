@@ -20,7 +20,7 @@ export default class FilterArea {
                 name: 'Цвет',
             },
             brand: {
-                values: ['Lipton', 'Richard', 'Greenfield', 'Ahmad tea'],
+                values: ['Lipton', 'Richard', 'Greenfield', 'Ahmad tea', 'Impra', 'Curtis'],
                 name: 'Брэнд',
             },
         };
