@@ -28,8 +28,8 @@ export default class AppView {
     renderFilterArea(options: TOptions) {
         this.filterArea.render(options);
     }
-    renderSearch() {
-        this.searchArea.render();
+    renderSearch(options: TOptions) {
+        this.searchArea.render(options);
     }
     renderSortArea(options: TOptions) {
         this.sortArea.render(options);

@@ -222,7 +222,7 @@ class App {
     }
     public start() {
         this.view.renderFilterArea(this.options);
-        this.view.renderSearch();
+        this.view.renderSearch(this.options);
         this.view.renderSortArea(this.options);
         this.view.renderCart(this.cartItems.length);
 

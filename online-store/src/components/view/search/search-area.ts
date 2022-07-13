@@ -1,3 +1,4 @@
+import { TOptions } from '../../types/types';
 import './search-area.sass';
 //asd
 export default class SearchArea {
@@ -13,8 +14,9 @@ export default class SearchArea {
         });
     }
 
-    render() {
+    render(options: TOptions) {
         const searchArea = document.querySelector('.search-area') as HTMLDivElement;
+        searchArea.innerHTML = '';
         const input = document.createElement('input') as HTMLInputElement;
         const closeBtn = document.createElement('button') as HTMLButtonElement;
 
@@ -24,6 +26,9 @@ export default class SearchArea {
 
         input.className = 'search-input';
         closeBtn.className = 'search-icon';
+
+        input.value = options.search;
+        if (options.search) closeBtn.classList.add('close');
 
         this.events(input, closeBtn);
 
