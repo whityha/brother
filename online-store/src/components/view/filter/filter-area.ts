@@ -23,6 +23,10 @@ export default class FilterArea {
                 values: ['Lipton', 'Richard', 'Greenfield', 'Ahmad tea', 'Impra', 'Curtis'],
                 name: 'Брэнд',
             },
+            box: {
+                values: ['листовой', 'пакетированный'],
+                name: 'Упаковка',
+            },
         };
     }
     private makeFilterBox(key: string, name: string, value: string[], checkedValues: string[]) {

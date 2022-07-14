@@ -15,4 +15,8 @@ export interface IfilterAreaOptions {
         values: [string];
         name: string;
     };
+    box: {
+        values: string[];
+        name: string;
+    };
 }
