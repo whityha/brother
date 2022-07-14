@@ -108,7 +108,7 @@ export const data: TCards = [
     },
     {
         id: 8,
-        discount_value: 520,
+        discount_value: 5,
         discount: true,
         image: {
             src: './assets/images/curtis_green_pack.jpg',
