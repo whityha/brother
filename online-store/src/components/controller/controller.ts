@@ -1,4 +1,5 @@
-import { TCallBack, TOptions, TCards, TfilterSetting, TfilterSliders, TCard } from '../types/types';
+import { TCallBack, TOptions, TCards, TfilterSetting, TfilterSliders } from '../types/types';
+import { ICard } from '../types/interfaces';
 export default class AppController {
     sort(data: TCards, options: Pick<TOptions, 'sortSettings'>, callback?: TCallBack): TCards {
         const sortData = data.sort((a, b) => {
@@ -27,7 +28,7 @@ export default class AppController {
             messageBox.innerHTML = 'Совпадений не найдено';
             cardsArea.append(messageBox);
         };
-        const filteringCard = (key: string, card: TCard) => {
+        const filteringCard = (key: string, card: ICard) => {
             if (card.price >= filterSliders.sliderPrice[0] && card.price <= filterSliders.sliderPrice[1]) {
                 if (card.date >= filterSliders.sliderDate[0] && card.date <= filterSliders.sliderDate[1]) {
                     if (card.brand.toLowerCase().indexOf(search.toLowerCase()) != -1) {

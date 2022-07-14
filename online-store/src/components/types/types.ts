@@ -1,20 +1,5 @@
-type TCard = {
-    [index: string]: string | number | boolean | object;
-    id: number;
-    discount_value: number;
-    discount: boolean;
-    image: {
-        src: string;
-    };
-    brand: string;
-    type: string;
-    box: TBox;
-    color: TColors;
-    country: TCountry;
-    price: number;
-    date: number;
-};
-type TCards = TCard[];
+import { ICard } from './interfaces';
+type TCards = ICard[];
 type TCallBack = (data: TCards) => void;
 
 type TColors = 'черный' | 'красный' | 'белый' | 'зеленый';
@@ -48,7 +33,6 @@ type TOptions = {
 };
 type TdefaultFilter = Pick<TOptions, 'filterSetting'>;
 export {
-    TCard,
     TCards,
     TCallBack,
     TOptions,
@@ -59,4 +43,7 @@ export {
     TsortSettings,
     TfilterSetting,
     TfilterSliders,
+    TColors,
+    TCountry,
+    TBox,
 };
