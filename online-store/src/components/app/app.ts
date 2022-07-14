@@ -45,7 +45,7 @@ class App {
             this.options.filterSliders = JSON.parse(JSON.stringify(this.defaultOptions)).filterSliders;
             this.options.search = '';
 
-            this.startFilter(this.options);
+            this.renderFilteringData(this.options);
             this.view.renderFilterArea(this.options);
             this.view.renderSearch(this.options);
 
@@ -62,7 +62,6 @@ class App {
             location.reload();
         });
     }
-
     private cardsEvent() {
         const cartBtns = document.querySelectorAll('.on-cart');
         cartBtns.forEach((item) => {
@@ -99,7 +98,6 @@ class App {
             });
         });
     }
-
     private sortEvent() {
         const sort = document.querySelector('.sort-select') as HTMLSelectElement;
         const sortBtn = document.querySelector('.sort-button') as HTMLButtonElement;
@@ -107,8 +105,8 @@ class App {
         sortBtn.addEventListener('click', () => {
             const value = sortBtn.value as Tsort_direction;
             this.options.sortSettings.direction = value;
-            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options);
-            else this.startSort(this.options);
+            if (Object.keys(this.options.filterSetting)) this.renderFilteringData(this.options);
+            else this.renderSortingData(this.options);
 
             this.storage.setItem('options', this.options);
         });
@@ -116,30 +114,28 @@ class App {
         sort.addEventListener('change', () => {
             const value = sort.options[sort.selectedIndex]['value'] as Tsort_type;
             this.options.sortSettings.type = value;
-            if (Object.keys(this.options.filterSetting)) this.startFilter(this.options);
-            else this.startSort(this.options);
+            if (Object.keys(this.options.filterSetting)) this.renderFilteringData(this.options);
+            else this.renderSortingData(this.options);
 
             this.storage.setItem('options', this.options);
         });
     }
-
     private searchEvent() {
         const search = document.querySelector('.search-input') as HTMLInputElement;
         const clearBtn = document.querySelector('.search-icon') as HTMLButtonElement;
         clearBtn.addEventListener('click', () => {
             this.options.search = '';
-            this.startFilter(this.options);
+            this.renderFilteringData(this.options);
 
             this.storage.setItem('options', this.options);
         });
         search.addEventListener('input', () => {
             this.options.search = search.value;
-            this.startFilter(this.options);
+            this.renderFilteringData(this.options);
 
             this.storage.setItem('options', this.options);
         });
     }
-
     private checkboxEvent() {
         //навешиваеем обработчики событий на чекбоксы, для изменения настроек фильтрации
         const checkboxes = document.querySelectorAll('.filter-area input[type=checkbox]');
@@ -165,23 +161,38 @@ class App {
                                 delete this.options.filterSetting[checkboxName];
                         }
                     }
-                    this.startFilter(this.options);
+                    this.renderFilteringData(this.options);
 
                     this.storage.setItem('options', this.options);
                 }
             });
         });
     }
+    private filterSliderEvent() {
+        const sliderDate = document.querySelector('.slider-date') as HTMLDivElement;
+        const sliderPrice = document.querySelector('.slider-price') as HTMLDivElement;
+        ((sliderDate as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
+            this.options.filterSliders.sliderDate[handle] = Math.round(values[handle]);
+            this.renderFilteringData(this.options);
 
-    private startSort(options: TOptions) {
+            this.storage.setItem('options', this.options);
+        });
+        ((sliderPrice as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
+            this.options.filterSliders.sliderPrice[handle] = Math.round(values[handle]);
+            this.renderFilteringData(this.options);
+
+            this.storage.setItem('options', this.options);
+        });
+    }
+
+    private renderSortingData(options: TOptions) {
         this.clearBox('.card-list');
         this.controller.sort(this.data, options, (data: TCards) => {
             this.view.renderCards(data, this.cartItems);
         });
         this.cardsEvent();
     }
-
-    private startFilter(options: TOptions) {
+    private renderFilteringData(options: TOptions) {
         let newData = this.data;
         this.clearBox('.card-list');
         newData = this.controller.sort(newData, options);
@@ -214,22 +225,7 @@ class App {
         const cardsList = document.querySelector(`${className}`) as HTMLElement;
         cardsList.innerHTML = '';
     }
-    private filterSliderEvent() {
-        const sliderDate = document.querySelector('.slider-date') as HTMLDivElement;
-        const sliderPrice = document.querySelector('.slider-price') as HTMLDivElement;
-        ((sliderDate as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
-            this.options.filterSliders.sliderDate[handle] = Math.round(values[handle]);
-            this.startFilter(this.options);
 
-            this.storage.setItem('options', this.options);
-        });
-        ((sliderPrice as unknown) as TDSlider).noUiSlider.on('change', (values: number[], handle: number) => {
-            this.options.filterSliders.sliderPrice[handle] = Math.round(values[handle]);
-            this.startFilter(this.options);
-
-            this.storage.setItem('options', this.options);
-        });
-    }
     public start() {
         this.view.renderFilterArea(this.options);
         this.view.renderSearch(this.options);
@@ -242,7 +238,7 @@ class App {
         this.filterSliderEvent();
         this.resetEvent();
 
-        this.startFilter(this.options);
+        this.renderFilteringData(this.options);
     }
 }
 
