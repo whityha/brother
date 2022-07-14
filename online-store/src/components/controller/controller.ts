@@ -20,6 +20,13 @@ export default class AppController {
         callback: TCallBack
     ): void {
         let newData: TCards = [];
+        const messageNoCards = () => {
+            const cardsArea = document.querySelector('.card-list') as HTMLUListElement;
+            const messageBox = document.createElement('div');
+            messageBox.className = 'no-cards';
+            messageBox.innerHTML = 'Совпадений не найдено';
+            cardsArea.append(messageBox);
+        };
         const filteringCard = (key: string, card: TCard) => {
             if (card.price >= filterSliders.sliderPrice[0] && card.price <= filterSliders.sliderPrice[1]) {
                 if (card.date >= filterSliders.sliderDate[0] && card.date <= filterSliders.sliderDate[1]) {
@@ -46,12 +53,16 @@ export default class AppController {
                 newData = data.filter((card) => {
                     return filteringCard(key, card);
                 });
+                if (newData.length === 0) messageNoCards();
             } else {
                 newData = newData.filter((card) => {
                     return filteringCard(key, card);
                 });
                 // в случае, если в Data уже нет карточек, мы прерываем выполнение фильтрации, иначе попадет под первое условие
-                if (newData.length === 0) break;
+                if (newData.length === 0) {
+                    messageNoCards();
+                    break;
+                }
             }
         }
         callback(newData);
