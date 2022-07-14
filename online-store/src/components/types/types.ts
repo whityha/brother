@@ -8,16 +8,19 @@ type TCard = {
     };
     brand: string;
     type: string;
-    box: string;
-    color: string;
-    country: string;
+    box: TBox;
+    color: TColors;
+    country: TCountry;
     price: number;
     date: number;
 };
 type TCards = TCard[];
 type TCallBack = (data: TCards) => void;
-// type TColors = ('черный' | 'красный' | 'белый' | 'зеленый')[];
-// type TCountry = ('Индия' | 'Китай' | 'Англия' | 'Индонезия')[];
+
+type TColors = 'черный' | 'красный' | 'белый' | 'зеленый';
+type TCountry = 'Индия' | 'Китай' | 'Англия' | 'Индонезия';
+type TBox = 'листовой' | 'пакетированный';
+
 type Tsort_direction = 'line' | 'reverse';
 
 type Tsort_type = 'date' | 'price';
