@@ -16,7 +16,7 @@ class App {
         this.view = new AppView();
         this.controller = new AppController();
         this.storage = new WebStorage();
-        this.cartItems = [];
+        this.cartItems = this.storage.getItem('cart') || [];
         this.defaultOptions = {
             sortSettings: {
                 direction: 'line',
@@ -93,6 +93,8 @@ class App {
                             changeCart();
                         }
                     } else throw new Error(`В корзине уже больше ${MAX_CART_COUNT} штук`);
+
+                    this.storage.setItem('cart', this.cartItems);
                 }
             });
         });
