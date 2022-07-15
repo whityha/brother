@@ -1,8 +1,23 @@
 @import './variables.sass'
+*
+    padding: 0
+    margin: 0
+    box-sizing: border-box
+    list-style: none
+
+button
+    border: none
+    background: inherit
+    font-family: inherit
+    font-size: inherit
 
 .wrapper
     width: 1200px
     margin: 0 auto
+    @media ( max-width: $max )
+        width: 960px        
+        @media ( max-width: $min )
+            width: 740px
 .header
     background: $camel
     margin-bottom: 20px
@@ -38,12 +53,21 @@
         justify-content: space-between
         .sort-area
             width: 35%
+            @media ( max-width: $min )
+                width: 50%
         .search-area
             width: 60%
             margin-bottom: 20px
+            @media ( max-width: $min )
+                width: 50%
+                margin-right: 0
         .filter-area
             width: 20%
             background: #ebebeb
+            @media ( max-width: $max )
+                width: 25%
+                @media ( max-width: $min )
+                    width: 35%
             .buttons-reset
                 display: flex
                 justify-content: space-around                
@@ -56,11 +80,19 @@
         .card-list
             width: 80%
             display: flex
-            flex-wrap: wrap
+            flex-wrap: wrap 
+            @media ( max-width: $max )
+                width: 75%
+                @media ( max-width: $min )
+                    width: 65% 
             &-item
                 display: flex
                 width: 25%
                 justify-content: center
+                @media ( max-width: $max )
+                    width: 33%
+                @media ( max-width: $min )
+                    width: 50%               
             .no-cards
                 font-size: 40px
                 padding: 30px 50px
