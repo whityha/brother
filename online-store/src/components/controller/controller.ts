@@ -59,7 +59,10 @@ export default class AppController {
                 newData = data.filter((card) => {
                     return filteringCard(key, card);
                 });
-                if (newData.length === 0) messageNoCards();
+                if (newData.length === 0) {
+                    messageNoCards();
+                    break;
+                }
             } else {
                 newData = newData.filter((card) => {
                     return filteringCard(key, card);
