@@ -2,7 +2,7 @@ import AppView from '../view/appView';
 import AppController from '../controller/controller';
 import WebStorage from '../view/web-storage/web-storage';
 import { TCards, TOptions, TdefaultFilter, Tsort_type, Tsort_direction, TDSlider } from '../types/types';
-const MAX_CART_COUNT = 6;
+import { MAX_CART_COUNT } from '../constants/constants';
 class App {
     view: AppView;
     controller: AppController;
