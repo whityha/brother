@@ -1,14 +1,17 @@
+@import '../../../../variables.sass'
 .noUi-horizontal
     height: 10px
 .noUi-horizontal .noUi-handle
     top: -11px
 .noUi-connect
-    background: #cf995f
+    background: $camel
 .noUi-target
     width: 80%
     margin: 0 auto
     margin-top: 20px
     margin-bottom: 20px
+.noUi-handle
+    cursor: pointer
 .slider-range
     margin-top: 20px
 .slider-head
@@ -19,9 +22,12 @@
     display: flex
     justify-content: space-around
     .value
-        padding: 7px 20px
+        display: flex
+        justify-content: center
+        padding: 7px 0px
         width: 80px
-        border: 1px solid #cf995f
-        font-size: 14px
+        border: 1px solid $camel
+        font-size: 16px
+        font-family: 'Montserrat'
         font-weight: bold
-        color: #cf995f
+        color: $camel

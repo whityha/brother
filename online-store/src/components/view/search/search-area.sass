@@ -1,3 +1,4 @@
+@import '../../../variables.sass'
 .search-area
     display: flex
     justify-content: flex-end 
@@ -8,12 +9,14 @@
     .search-input
         width: 13%
         padding: 15px 40px 15px 10px 
-        border: 1px solid grey
-        border-radius: 10px 
+        box-shadow: 0 0 0 1px grey
+        border: none
+        border-radius: 10px
         transition: .3s
         &:focus
-          width: 60%
-          outline: none   
+            width: 60%
+            outline: none
+            box-shadow: 0 0 0 2px $searchFocus
     .search-icon
         position: absolute 
         width: 14px
@@ -22,7 +25,7 @@
         right: 12px
         border: 2px solid grey 
         border-radius: 100px
-        transition: .2s
+        transition: .15s
         &:focus + .search-input
             width: 60%    
         &::after 

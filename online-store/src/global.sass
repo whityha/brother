@@ -32,8 +32,9 @@ button
             &-link
                 text-decoration: none
                 color: $slate-gray
-                font-size: 46px
+                font-size: 50px
                 font-weight: bold
+                font-family: 'Impact'
             &-store                
                 color: $slate-gray
                 font-size: 20px
@@ -74,9 +75,12 @@ button
                 .button-reset
                     margin: 10px 5px 0px 5px
                     padding: 4px 0px
-                    border: 1px solid $camel
+                    border: 1px solid grey
                     border-radius: 10px
                     cursor: pointer
+                    transition: .2s
+                    &:hover
+                        background-color: $medium-champagne
         .card-list
             width: 80%
             display: flex
